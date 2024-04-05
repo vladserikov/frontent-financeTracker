@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// const baseUrl = '/user';
 
 function User() {
 	const [name, setName] = useState('');

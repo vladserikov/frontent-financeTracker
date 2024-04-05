@@ -1,52 +1,60 @@
-import { useEffect } from 'react';
 import './App.css';
+
+import { useEffect } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+
+import InitUser from './login/InitUser';
 import Login from './login/Login';
+import Registration from './login/Registration';
 import { useUser } from './state/user';
-import { Storage } from './Storage';
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Link,
-	useNavigate,
-} from 'react-router-dom';
+import { Storage } from './storage/Storage';
 
 function App() {
-	const { initUser, user } = useUser(({ initUser, user }) => ({
-		user,
-		initUser,
-	}));
-	// const navigate = useNavigate();
+	const { initUser, user, clearUser } = useUser((state) => state);
+	const navigation = useNavigate();
 
 	useEffect(() => {
 		if (!user) {
 			const userObj = localStorage.getItem('objUser');
 			if (userObj) {
-				initUser(JSON.parse(userObj));
-				// navigate('/user');
-			} else {
+				const obj = JSON.parse(userObj);
+				initUser(obj);
 			}
 		}
 	}, [initUser, user]);
 
 	return (
-		<Router>
+		<div className='grid'>
 			<div>
-				<Link to={'/'}>home</Link>
-				<Link to={'/user'}>user</Link>
+				<button
+					onClick={() => {
+						clearUser();
+						localStorage.removeItem('objUser');
+						navigation('/');
+					}}
+				>
+					clear
+				</button>
 			</div>
 			<Routes>
-				<Route path='/' element={<Login />} />
+				<Route
+					path='/'
+					element={
+						user ? (
+							<Navigate replace to={'/user'} />
+						) : (
+							<Navigate replace to={'/init'} />
+						)
+					}
+				/>
+				<Route path='/init' element={<InitUser />}>
+					<Route path='login' element={<Login />} />
+					<Route path='registration' element={<Registration />} />
+				</Route>
 				<Route path='/user' element={<Storage />} />
 			</Routes>
-		</Router>
+		</div>
 	);
-	// return (
-	// 	<>
-	// 		<Login />
-	// 		<Storage />
-	// 	</>
-	// );
 }
 
 export default App;
