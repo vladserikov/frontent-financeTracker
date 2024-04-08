@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../state/user';
+import Button from '../ui/Button';
+import InputForm from '../ui/InputForm';
 import { registrationAction } from './utils/registration';
 
 const Registration = () => {
@@ -31,27 +33,33 @@ const Registration = () => {
 		};
 
 	return (
-		<div className='login'>
-			<h1>registration</h1>
+		<>
 			<form onSubmit={onSubmit}>
-				<input
-					onChange={onChangeInput(setUsername)}
-					placeholder='username'
-					value={username}
-				/>
-				<input
+				<div>Создать аккаунт</div>
+				<InputForm
+					id='name'
 					onChange={onChangeInput(setName)}
-					placeholder='name'
+					placeholder='Имя'
+					type='text'
 					value={name}
 				/>
-				<input
-					onChange={onChangeInput(setPassword)}
-					placeholder='password'
-					value={password}
+				<InputForm
+					id='username'
+					onChange={onChangeInput(setUsername)}
+					placeholder='Username'
+					type='text'
+					value={name}
 				/>
-				<button type='submit'>login</button>
+				<InputForm
+					id='password'
+					type='password'
+					placeholder='Пароль'
+					value={password}
+					onChange={onChangeInput(setPassword)}
+				/>
+				<Button type='submit' text='Регистрация' />
 			</form>
-		</div>
+		</>
 	);
 };
 

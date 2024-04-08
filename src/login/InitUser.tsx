@@ -1,17 +1,36 @@
-import { Link, Outlet } from 'react-router-dom';
+// import { NavLink, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { bem } from '../utils/classnames';
+import Login from './Login';
+import Registration from './Registration';
+import Stub from './Stub';
+
+const { block: wrap } = bem('wrap');
+const { block, elementGenerator } = bem('start-window');
+const { element } = elementGenerator('user');
 
 const InitUser = () => {
+	const { pathname } = useLocation();
+
+	const [currentForm, setCurrentForm] = useState<'login' | 'registration'>(
+		'login'
+	);
+	console.log({ pathname, currentForm });
+	useEffect(() => {
+		setCurrentForm(pathname === '/init/login' ? 'login' : 'registration');
+	}, [pathname]);
+
 	return (
-		<div>
-			<div className='links px-4 container '>
-				<Link to={'/init/login'} className='px-4'>
-					login
-				</Link>
-				<Link to={'/init/registration'} className='px-4 border-s-black'>
-					registration
-				</Link>
+		<div className={wrap}>
+			<div className={`${block} ${currentForm}`}>
+				<Stub
+					type={currentForm === 'registration' ? 'login' : 'registration'}
+				/>
+				<div className={element}>
+					{currentForm === 'login' ? <Login /> : <Registration />}
+				</div>
 			</div>
-			<Outlet />
 		</div>
 	);
 };

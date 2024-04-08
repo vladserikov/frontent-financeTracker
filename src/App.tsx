@@ -1,17 +1,17 @@
-import './App.css';
+import './main.scss';
 
 import { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import InitUser from './login/InitUser';
 import Login from './login/Login';
 import Registration from './login/Registration';
 import { useUser } from './state/user';
 import { Storage } from './storage/Storage';
+import User from './user/User';
 
 function App() {
-	const { initUser, user, clearUser } = useUser((state) => state);
-	const navigation = useNavigate();
+	const { initUser, user } = useUser((state) => state);
 
 	useEffect(() => {
 		if (!user) {
@@ -24,18 +24,7 @@ function App() {
 	}, [initUser, user]);
 
 	return (
-		<div className='grid'>
-			<div>
-				<button
-					onClick={() => {
-						clearUser();
-						localStorage.removeItem('objUser');
-						navigation('/');
-					}}
-				>
-					clear
-				</button>
-			</div>
+		<div className='app'>
 			<Routes>
 				<Route
 					path='/'
@@ -51,7 +40,9 @@ function App() {
 					<Route path='login' element={<Login />} />
 					<Route path='registration' element={<Registration />} />
 				</Route>
-				<Route path='/user' element={<Storage />} />
+				<Route path='/user' element={<User />}>
+					<Route path='balance' element={<Storage />} />
+				</Route>
 			</Routes>
 		</div>
 	);

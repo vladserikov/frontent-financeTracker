@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { useUser } from '../state/user';
 
 function User() {
-	const [name, setName] = useState('');
-	const [password, setPassword] = useState('');
-
-	const onChangeInput =
-		(setValue: React.Dispatch<React.SetStateAction<string>>) =>
-		(e: React.FormEvent<HTMLInputElement>) => {
-			setValue(e.currentTarget.value);
-		};
+	const user = useUser((state) => state.user);
 
 	return (
 		<div>
-			<form>
-				<input onChange={onChangeInput(setName)} value={name} />
-				<input onChange={onChangeInput(setPassword)} value={password} />
-				<button type='submit'>login</button>
-			</form>
+			<div>
+				<nav className='flex flex-auto gap-4'>
+					<Link to={'/user'} title='main'>
+						main
+					</Link>
+					<Link to={'/user/balance'} title='balance'>
+						balance
+					</Link>
+					<Link to={'/user/fake'} title='fake'>
+						fake
+					</Link>
+				</nav>
+			</div>
+			<div>
+				{user?.name} {user?.username}
+			</div>
+			<Outlet context={{ user }} />
 		</div>
 	);
 }

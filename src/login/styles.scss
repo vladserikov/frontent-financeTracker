@@ -1,0 +1,118 @@
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-window {
+    width: 80vw;
+    height: 80vh;
+    border-radius: var(--border-radius-default);
+    box-shadow: var(--card-shadow);
+
+    display: flex;
+
+    justify-content: center;
+
+    &__user {
+        width: 50%;
+        align-self: center;
+
+        &>form {
+            margin-left: 2.5rem;
+            margin-right: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 18px;
+        }
+    }
+}
+
+
+.stub {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    gap: 18px;
+
+    >svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__text {
+        align-self: center;
+        z-index: 100;
+
+        text-align: center;
+        color: var(--button-default-text-color);
+        word-spacing: .1px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &--title {
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 45px;
+            width: 80%;
+        }
+
+        &--sub-title {
+            font-size: 14px;
+            line-height: 22px;
+            width: 70%;
+        }
+
+
+    }
+
+    &__button {
+        width: 40%;
+        z-index: 100;
+        align-self: center;
+
+        &--link {
+            background-color: var(--selected-wallet);
+            color: var(--background-element);
+
+            &:hover {
+                background-color: var(--selected-wallet-dark);
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .wrap {
+        align-items: baseline;
+    }
+    .start-window {
+        height: 70vh;
+        box-shadow: none;
+        width: 90vw;
+
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+
+        &__user {
+            width: 100%;
+            align-self: flex-start;
+        }
+        .stub {
+            width: 100%;
+            // display: none;
+            &__text {
+                display: none;
+            }
+        }
+    }
+}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../state/user';
+import Button from '../ui/Button';
+import InputForm from '../ui/InputForm';
 import { loginAction } from './utils/login';
 
 const Login = () => {
@@ -14,6 +16,8 @@ const Login = () => {
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log(e.target);
+
 		try {
 			const result = await loginAction({ username, password });
 			initUser(result);
@@ -31,14 +35,26 @@ const Login = () => {
 		};
 
 	return (
-		<div className='login'>
-			<h1>login</h1>
+		<>
 			<form onSubmit={onSubmit}>
-				<input onChange={onChangeInput(setUsername)} value={username} />
-				<input onChange={onChangeInput(setPassword)} value={password} />
-				<button type='submit'>login</button>
+				<div>Войти в аккаунт</div>
+				<InputForm
+					id='username'
+					placeholder='username'
+					type='text'
+					value={username}
+					onChange={onChangeInput(setUsername)}
+				/>
+				<InputForm
+					id='password'
+					placeholder='password'
+					type='password'
+					value={password}
+					onChange={onChangeInput(setPassword)}
+				/>
+				<Button text='Войти' type='submit' />
 			</form>
-		</div>
+		</>
 	);
 };
 

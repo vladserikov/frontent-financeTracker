@@ -1,0 +1,38 @@
+@import './normolize.scss';
+
+:root {
+    --button-default-text-color: #2C3039; // 01
+    --button-selected-color: #3F4654; // 02
+    --button-selected-color-dark: #2f343e;
+    --subtitle-text: #A0A5AA; // 03
+    --button-default-color: #C9CACB; // 04
+    --button-default-color-light: #c9cacbaa;
+    --button-selected-text-color: #FFFFFF; // 09
+    --selected-menu: #EEEEEE; // 05
+    --selected-wallet: #C4A577; // 06
+    --selected-wallet-dark: #a88e66; // 06
+    --background-element: #F3EDE4; // 08
+    --background-element-dark: #eeddc1; // 08
+    --background-color: #FFFFFF; // 09
+    --border-radius-default: 8px;
+    --card-shadow: 4px 4px 25px 4px rgba(0,0,0,0.6);
+    --border-selected: 2px solid var(--selected-wallet);
+    --border-default: 2px solid transparent;
+
+}
+
+* {
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+}
+
+
+.app {
+    background-color: var(--background-color);
+    width: 100vw;
+    height: 100vh;
+    color: var(--button-default-text-color);
+}
+
+@import './styles.scss'
