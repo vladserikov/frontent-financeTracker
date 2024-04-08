@@ -18,14 +18,12 @@ const svgOne = (
 	</svg>
 );
 
-const { block, elementGenerator } = bem('stub');
-const { element: elementButton, modifierGenerator: modifierGeneratorButton } =
-	elementGenerator('button');
-const { element: elementText, modifierGenerator: modifierGeneratorText } =
-	elementGenerator('text');
-const titleBlock = modifierGeneratorText('title');
-const subTitleBlock = modifierGeneratorText('sub-title');
-const linkBlock = modifierGeneratorButton('link');
+const [block, elementGenerator] = bem('stub');
+const [elementButton, modifierGeneratorButton] = elementGenerator('button');
+const [elementText, modifierGeneratorText] = elementGenerator('text');
+const [titleBlock] = modifierGeneratorText('title');
+const [subTitleBlock] = modifierGeneratorText('sub-title');
+const [linkBlock] = modifierGeneratorButton('link');
 
 const Stub: React.FC<StubProps> = ({ type }) => {
 	const linkProps = {

@@ -9,8 +9,8 @@ type InputForm = {
 	id: string;
 };
 
-const { block, elementGenerator } = bem('input-block');
-const { element } = elementGenerator('element');
+const [block, elementGenerator] = bem('input-block');
+const [element] = elementGenerator('element');
 
 const InputForm: React.FC<InputForm> = ({
 	placeholder,

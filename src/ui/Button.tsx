@@ -8,7 +8,7 @@ type ButtonProps = {
 	className?: string;
 };
 
-export const { block } = bem('default-button');
+export const [block] = bem('default-button');
 
 const Button: React.FC<ButtonProps> = ({ text, type, onClick }) => {
 	return (

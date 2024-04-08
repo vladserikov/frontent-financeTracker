@@ -1,28 +1,37 @@
-import { Link, Outlet } from 'react-router-dom';
-import { useUser } from '../state/user';
+import { useEffect } from 'react';
+import { useStorages, useUser } from '../state/user';
+import StickMenu from '../ui/StickMenu';
+import { bem } from '../utils/classnames';
+import Balance from './Balance';
+import { getAllStorages } from './userData';
+
+const [block] = bem('home');
 
 function User() {
 	const user = useUser((state) => state.user);
+	const { storages, initStorages } = useStorages();
+	console.log({ user, storages });
+
+	useEffect(() => {
+		const fn = async () => {
+			if (user) {
+				try {
+					const loadData = await getAllStorages(user.token);
+					initStorages(loadData);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+		};
+
+		fn();
+	}, [user?.token]);
 
 	return (
-		<div>
-			<div>
-				<nav className='flex flex-auto gap-4'>
-					<Link to={'/user'} title='main'>
-						main
-					</Link>
-					<Link to={'/user/balance'} title='balance'>
-						balance
-					</Link>
-					<Link to={'/user/fake'} title='fake'>
-						fake
-					</Link>
-				</nav>
-			</div>
-			<div>
-				{user?.name} {user?.username}
-			</div>
-			<Outlet context={{ user }} />
+		<div className={block}>
+			<StickMenu />
+
+			<Balance />
 		</div>
 	);
 }

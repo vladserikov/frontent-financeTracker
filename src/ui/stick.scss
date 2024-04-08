@@ -1,0 +1,99 @@
+.menu {
+    position: sticky;
+    background: var(--button-default-text-color);
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-between;
+    min-height: 3rem;
+    color: var(--button-default-text-color);
+    &__burger-icon {
+        min-width: 5rem;
+    }
+
+    &__burger-menu {
+
+        transition: .5s all cubic-bezier(0.175, 0.885, 0.32, 1);
+        position: absolute;
+
+        transform: translateX(-100%);
+        padding: 10px;
+        z-index: -100;
+
+        position: absolute;
+
+        &>div {
+            padding: 10px;
+        }
+
+    }
+
+    &__user {
+        color: white;
+    }
+}
+
+
+.active.menu__burger-menu {
+    transform: translateX(0);
+    width: 100%;
+
+
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    height: 100%;
+    padding: 5px 0;
+    z-index: 100;
+    gap: 3px;
+    transition: .5s all;
+
+
+    &-element {
+        transition: .5s all;
+        transform: rotate(0);
+        background-color: var(--background-element);
+
+        height: 3px;
+        border-radius: 10px;
+
+        &:nth-child(1),
+        &:nth-child(3) {
+            width: 3vw;
+            transform: rotate(0) translateY(0);
+        }
+
+        &:nth-child(2) {
+            width: 4vw;
+            transform: translateX(0);
+        }
+    }
+}
+
+
+.active.hamburger {
+    transform: translateX(20%);
+
+    .hamburger-element {
+        background: var(--selected-wallet);
+
+        &:nth-child(1) {
+            transform: rotate(205deg) translateY(-5px);
+        }
+
+        &:nth-child(3) {
+            transform: rotate(-205deg) translateY(5px);
+        }
+
+        &:nth-child(2) {
+            transform: translateX(-10px);
+            width: 0;
+            height: 0;
+        }
+
+    }
+}

@@ -48,7 +48,7 @@ const Registration = () => {
 					onChange={onChangeInput(setUsername)}
 					placeholder='Username'
 					type='text'
-					value={name}
+					value={username}
 				/>
 				<InputForm
 					id='password'

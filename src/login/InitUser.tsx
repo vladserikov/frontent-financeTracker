@@ -6,9 +6,9 @@ import Login from './Login';
 import Registration from './Registration';
 import Stub from './Stub';
 
-const { block: wrap } = bem('wrap');
-const { block, elementGenerator } = bem('start-window');
-const { element } = elementGenerator('user');
+const [wrap] = bem('wrap');
+const [block, elementGenerator] = bem('start-window');
+const [element] = elementGenerator('user');
 
 const InitUser = () => {
 	const { pathname } = useLocation();
@@ -16,7 +16,7 @@ const InitUser = () => {
 	const [currentForm, setCurrentForm] = useState<'login' | 'registration'>(
 		'login'
 	);
-	console.log({ pathname, currentForm });
+
 	useEffect(() => {
 		setCurrentForm(pathname === '/init/login' ? 'login' : 'registration');
 	}, [pathname]);
