@@ -1,12 +1,9 @@
 import axios from 'axios';
+import { NewUser } from '../types';
 
 const baseUrl = '/api/user';
 
-export const registrationAction = async (loginObj: {
-	username: string;
-	password: string;
-	name: string;
-}) => {
+export const registrationAction = async (loginObj: NewUser) => {
 	const request = await axios.post(baseUrl, loginObj);
 
 	if (request.statusText === 'Created') return request.data;

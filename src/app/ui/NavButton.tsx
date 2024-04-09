@@ -8,7 +8,7 @@ type ButtonMenu = {
 	text: string;
 };
 
-const ButtonMenu: React.FC<ButtonMenu> = (props) => {
+const NavButton: React.FC<ButtonMenu> = (props) => {
 	return (
 		<NavLink {...props} className={`${block} ${props.className}`}>
 			{props.text}
@@ -16,5 +16,5 @@ const ButtonMenu: React.FC<ButtonMenu> = (props) => {
 	);
 };
 
-export default ButtonMenu;
+export default NavButton;
 

@@ -1,24 +1,26 @@
 // import { NavLink, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { bem } from '../utils/classnames';
-import Login from './Login';
-import Registration from './Registration';
+import { bem } from '../app/utils/classnames';
+import Login from './login/Login';
+import Registration from './registration/Registration';
 import Stub from './Stub';
 
 const [wrap] = bem('wrap');
 const [block, elementGenerator] = bem('start-window');
 const [element] = elementGenerator('user');
 
-const InitUser = () => {
+const AuthUser = () => {
 	const { pathname } = useLocation();
-
+	console.log({ pathname });
 	const [currentForm, setCurrentForm] = useState<'login' | 'registration'>(
 		'login'
 	);
 
 	useEffect(() => {
-		setCurrentForm(pathname === '/init/login' ? 'login' : 'registration');
+		setCurrentForm(
+			pathname === '/auth/registration' ? 'registration' : 'login'
+		);
 	}, [pathname]);
 
 	return (
@@ -35,5 +37,5 @@ const InitUser = () => {
 	);
 };
 
-export default InitUser;
+export default AuthUser;
 

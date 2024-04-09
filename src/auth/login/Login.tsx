@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../state/user';
-import Button from '../ui/Button';
-import InputForm from '../ui/InputForm';
-import { loginAction } from './utils/login';
+import Button from '../../app/ui/Button';
+import InputForm from '../../app/ui/InputForm';
+import { setLocalStorageUser } from '../../app/utils/localObject';
+import { useUser } from '../../state/user';
+import { loginAction } from '../utils/login';
 
 const Login = () => {
 	const [username, setUsername] = useState('');
@@ -12,17 +13,16 @@ const Login = () => {
 
 	const navigate = useNavigate();
 
-	const initUser = useUser((state) => state.initUser);
+	const { initUser } = useUser();
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(e.target);
 
 		try {
 			const result = await loginAction({ username, password });
 			initUser(result);
-			localStorage.setItem('objUser', JSON.stringify(result));
-			navigate('/user');
+			setLocalStorageUser(result);
+			navigate('/app');
 		} catch (error) {
 			console.log(error);
 		}

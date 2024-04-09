@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../state/user';
+import { useUser } from '../../state/user';
 import { bem } from '../utils/classnames';
+import { removeLocalStorageUser } from '../utils/localObject';
 
 const [block, elementGenerator] = bem('menu');
 const [elementBurgerIcon] = elementGenerator('burger-icon');
@@ -31,8 +32,9 @@ const StickMenu = () => {
 	);
 
 	const onClick = () => {
+		console.log('out');
 		clearUser();
-		localStorage.removeItem('objUser');
+		removeLocalStorageUser();
 		navigate('/');
 	};
 

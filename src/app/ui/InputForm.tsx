@@ -2,7 +2,7 @@ import React from 'react';
 import { bem } from '../utils/classnames';
 
 type InputForm = {
-	type: HTMLInputElement['type'];
+	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
 	placeholder: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
 	value: string;

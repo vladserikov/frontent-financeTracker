@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../state/user';
-import Button from '../ui/Button';
-import InputForm from '../ui/InputForm';
-import { registrationAction } from './utils/registration';
+import Button from '../../app/ui/Button';
+import InputForm from '../../app/ui/InputForm';
+import { setLocalStorageUser } from '../../app/utils/localObject';
+import { useUser } from '../../state/user';
+import { registrationAction } from '../utils/registration';
 
 const Registration = () => {
 	const [username, setUsername] = useState('');
@@ -12,15 +13,15 @@ const Registration = () => {
 
 	const navigate = useNavigate();
 
-	const initUser = useUser((state) => state.initUser);
+	const { initUser } = useUser();
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
 			const result = await registrationAction({ username, password, name });
 			initUser(result);
-			localStorage.setItem('objUser', JSON.stringify(result));
-			navigate('/user');
+			setLocalStorageUser(result);
+			navigate('/app');
 		} catch (error) {
 			console.log(error);
 		}

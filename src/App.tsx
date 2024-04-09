@@ -3,22 +3,22 @@ import './main.scss';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import InitUser from './login/InitUser';
-import Login from './login/Login';
-import Registration from './login/Registration';
+import MainApp from './app/MainApp';
+import Storages from './app/storages/Storages';
+import { getLocalStorageUser } from './app/utils/localObject';
+import AuthUser from './auth/AuthUser';
+import Login from './auth/login/Login';
+import Registration from './auth/registration/Registration';
 import { useUser } from './state/user';
-import { Storage } from './storage/Storage';
-import User from './user/User';
 
 function App() {
-	const { initUser, user } = useUser((state) => state);
+	const { initUser, user } = useUser();
 
 	useEffect(() => {
 		if (!user) {
-			const userObj = localStorage.getItem('objUser');
+			const userObj = getLocalStorageUser();
 			if (userObj) {
-				const obj = JSON.parse(userObj);
-				initUser(obj);
+				initUser(userObj);
 			}
 		}
 	}, [initUser, user]);
@@ -28,20 +28,14 @@ function App() {
 			<Routes>
 				<Route
 					path='/'
-					element={
-						user ? (
-							<Navigate replace to={'/user'} />
-						) : (
-							<Navigate replace to={'/init'} />
-						)
-					}
+					element={<Navigate replace to={user ? '/app' : '/auth'} />}
 				/>
-				<Route path='/init' element={<InitUser />}>
+				<Route path='/auth' element={<AuthUser />}>
 					<Route path='login' element={<Login />} />
 					<Route path='registration' element={<Registration />} />
 				</Route>
-				<Route path='/user' element={<User />}>
-					<Route path='balance' element={<Storage />} />
+				<Route path='/app' element={<MainApp />}>
+					<Route index element={<Storages />} />
 				</Route>
 			</Routes>
 		</div>
