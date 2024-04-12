@@ -10,9 +10,9 @@ type ButtonProps = {
 
 export const [block] = bem('default-button');
 
-const Button: React.FC<ButtonProps> = ({ text, type, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ text, type, onClick, className }) => {
 	return (
-		<button onClick={onClick} type={type} className={block}>
+		<button onClick={onClick} type={type} className={`${block} ${className}`}>
 			{text}
 		</button>
 	);

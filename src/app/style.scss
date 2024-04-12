@@ -1,0 +1,66 @@
+.modal-dialog {
+    top: 0;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: stretch;
+    align-items: stretch;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+
+    .modal-window {
+        width: 100%;
+        z-index: 9999;
+
+        margin: 20px;
+        padding: 10px;
+
+        background-color: var(--background-color);
+        border-radius: 8px;
+    }
+}
+
+.home {
+    width: 100%;
+    height: 100%;
+}
+
+.layer {
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-layer);
+
+    >div {
+        background-color: var(--background-color);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 8px;
+    }
+}
+
+@media (min-width: 580px) {
+    .home {
+        display: grid;
+        grid-template-columns: 128px 1fr;
+        grid-template-rows: 128px 1fr;
+
+        grid-template-areas:
+            "menu header"
+            "menu main";
+    }
+
+    .layer {
+        grid-area: main;
+    }
+}
+
+@import './storages/styles.scss'

@@ -1,3 +1,4 @@
+import { NewStorage } from '../app/storages/utils/storages';
 import { Storage, User } from '../app/types';
 
 export type UserState = {
@@ -16,7 +17,7 @@ export type StorageState = {
 
 export type StoragesState = {
 	storages: Storage[];
-	addStorage: (newStorage: Storage) => void;
+	addStorage: (newStorage: NewStorage, token: string, cb?: () => void) => void;
 	removeStorage: (id: string) => void;
 	initStorages: (storages: Storage[]) => void;
 };

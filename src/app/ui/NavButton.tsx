@@ -5,13 +5,14 @@ import { block } from './Button';
 type ButtonMenu = {
 	to: string;
 	className?: string;
-	text: string;
+	text?: string;
+	icon?: JSX.Element;
 };
 
-const NavButton: React.FC<ButtonMenu> = (props) => {
+const NavButton: React.FC<ButtonMenu> = ({ text, to, className, icon }) => {
 	return (
-		<NavLink {...props} className={`${block} ${props.className}`}>
-			{props.text}
+		<NavLink to={to} className={`${block} ${className}`}>
+			{icon} {text}
 		</NavLink>
 	);
 };

@@ -7,29 +7,30 @@
     justify-content: space-between;
     min-height: 3rem;
     color: var(--button-default-text-color);
+
+    z-index: 9999;
+
     &__burger-icon {
         min-width: 5rem;
     }
 
     &__burger-menu {
 
-        transition: .5s all cubic-bezier(0.175, 0.885, 0.32, 1);
+        transition: .9s all cubic-bezier(0.175, 0.885, 0.32, 1);
         position: absolute;
 
         transform: translateX(-100%);
-        padding: 10px;
-        z-index: -100;
 
         position: absolute;
 
-        &>div {
-            padding: 10px;
-        }
-
     }
 
-    &__user {
-        color: white;
+    &__content {
+        padding: 10px;
+        background-color: var(--background-color);
+        height: 50%;
+        border-radius: 8px;
+        transition: .5s
     }
 }
 
@@ -37,8 +38,9 @@
 .active.menu__burger-menu {
     transform: translateX(0);
     width: 100%;
-
-
+    background-color: rgba($color: #000000, $alpha: .6);
+    height: 100vh;
+    z-index: 9999;
 }
 
 .hamburger {
@@ -95,5 +97,40 @@
             height: 0;
         }
 
+    }
+}
+
+@media (min-width: 580px) {
+    .menu {
+        width: 15vw;
+        max-width: 128px;
+        grid-area: menu;
+
+        &__burger-icon {
+            display: none;
+        }
+
+        &__burger-menu {
+            position: fixed;
+
+            transform: translateX(0);
+            height: 100%;
+        }
+
+        &__content {
+            height: 100%;
+            border-radius: 0;
+            padding: 0;
+            background-color: inherit;
+            color: ;
+        }
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .profile-panel {
+        grid-area: header;
     }
 }

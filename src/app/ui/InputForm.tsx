@@ -5,7 +5,7 @@ type InputForm = {
 	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
 	placeholder: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
-	value: string;
+	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
 	id: string;
 };
 
@@ -21,7 +21,6 @@ const InputForm: React.FC<InputForm> = ({
 }) => {
 	return (
 		<div className={block}>
-			{/* <label></label> */}
 			<input
 				id={id}
 				type={type}

@@ -1,0 +1,185 @@
+.form-block {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.storages {
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    &__title {
+        font-size: 24px;
+        color: var(--button-default-text-color);
+    }
+
+    &__add-btn {
+        width: 32px;
+        height: 32px;
+        min-height: fit-content;
+        border-radius: 3px;
+    }
+
+    &__cards {
+        display: flex;
+        overflow: auto;
+        width: 100%;
+        padding-bottom: 8px;
+    }
+
+}
+
+.card {
+    background-color: var(--background-element);
+    margin-right: 8px;
+    padding: 15px;
+    border-radius: 15px;
+    min-width: 188px;
+
+    color: var(--button-selected-color);
+    min-height: 150px;
+    box-shadow: var(--card-storage-shadow);
+
+    transition: all .3s;
+
+    position: relative;
+
+    &__edit-btn {
+        position: absolute;
+
+        right: 20px;
+        top: 25px;
+    }
+
+    &__content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__icon {
+        width: 55px;
+        height: 55px;
+        background-color: var(--selected-wallet);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 56px;
+    }
+
+    &__amount {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    &__name {
+        font-size: 12px;
+    }
+
+    &--selected {
+        background-color: var(--selected-wallet);
+        color: var(--background-color);
+
+        .card__icon {
+
+            background-color: var(--background-color);
+
+            svg {
+                path {
+                    fill: var(--button-default-text-color);
+                }
+            }
+        }
+
+    }
+}
+
+.data-layer {
+    // height: 150px;
+}
+
+.data {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+
+
+    &-card {
+        width: 30%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+
+        &__name {
+            margin-bottom: 16px;
+        }
+
+        &__wrapper {
+            background-color: var(--background-element);
+            max-height: 80px;
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 8px;
+        }
+
+        &__icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 56px;
+            background-color: var(--background-color);
+
+            &> svg{
+                width: 15px;
+                > path {
+                    fill: var(--selected-wallet);
+                }
+            }
+        }
+    }
+}
+
+.history-layer {
+
+}
+
+.history {
+    &__header, &__choice-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    &__choice-btn {
+        gap: 16px;
+        > button {
+            width: 50%;
+        }
+
+        &--select {
+            background-color: var(--button-default-color);
+            color: var(--button-default-text-color);
+        }
+    }
+}

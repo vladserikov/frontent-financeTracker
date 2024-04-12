@@ -3,7 +3,9 @@ import './main.scss';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import MainApp from './app/MainApp';
+import MainContent from './app/MainContent';
+import AddStorage from './app/storages/AddStorage';
+import AddTransaction from './app/storages/AddTransaction';
 import Storages from './app/storages/Storages';
 import { getLocalStorageUser } from './app/utils/localObject';
 import AuthUser from './auth/AuthUser';
@@ -34,8 +36,10 @@ function App() {
 					<Route path='login' element={<Login />} />
 					<Route path='registration' element={<Registration />} />
 				</Route>
-				<Route path='/app' element={<MainApp />}>
+				<Route path='/app' element={<MainContent />}>
 					<Route index element={<Storages />} />
+					<Route path='new-storage' element={<AddStorage />} />
+					<Route path='new-transaction' element={<AddTransaction />} />
 				</Route>
 			</Routes>
 		</div>

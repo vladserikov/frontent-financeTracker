@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import InputForm from './InputForm';
+import { useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useStorages } from '../../state/storages';
+import { User } from '../types';
+import Button from '../ui/Button';
+import InputForm from '../ui/InputForm';
+import { bem } from '../utils/classnames';
 
-const Modal: React.FC = () => {
+const [formWrapper] = bem('form-wrapper');
+const [formBlock] = bem('form-block');
+
+const AddStorage = () => {
+	const { addStorage } = useStorages();
+	const user = useOutletContext<User | null>();
+
+	const navigate = useNavigate();
+
 	const [name, setName] = useState('');
-	const [icon, setIcon] = useState('');
+	// const [icon, setIcon] = useState('');
 	const [unit, setUnit] = useState('');
 	const [amount, setAmount] = useState('');
 	const [comment, setComment] = useState('');
@@ -14,13 +27,22 @@ const Modal: React.FC = () => {
 			setState(value);
 		};
 
-	const onSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		e.stopPropagation();
+
+		addStorage(
+			{ amount: parseFloat(amount), name, unit },
+			user?.token || '',
+			() => {
+				navigate(-1);
+			}
+		);
 	};
 
 	return (
-		<div>
-			<form onSubmit={}>
+		<div className={formWrapper}>
+			<form onSubmit={onSubmit} className={formBlock}>
 				<div>Добавить счет</div>
 				<InputForm
 					onChange={onChangeState(setName)}
@@ -29,13 +51,13 @@ const Modal: React.FC = () => {
 					id='name'
 					placeholder='Название счета'
 				/>
-				<InputForm
+				{/* <InputForm
 					onChange={onChangeState(setIcon)}
 					value={icon}
 					id='icon'
 					placeholder='Icon'
 					type='image'
-				/>
+				/> */}
 				<InputForm
 					onChange={onChangeState(setUnit)}
 					value={unit}
@@ -57,11 +79,11 @@ const Modal: React.FC = () => {
 					placeholder='Комментарий'
 					type='text'
 				/>
-				<button type='submit'>Добавить</button>
+				<Button type='submit' text='Добавить' />
 			</form>
 		</div>
 	);
 };
 
-export default Modal;
+export default AddStorage;
 

@@ -1,5 +1,6 @@
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { create } from 'zustand';
+import { postStorage } from '../app/storages/utils/storages';
 import { StoragesState, StorageState } from './types';
 
 export const useStorage = create<StorageState>()((set) => ({
@@ -22,8 +23,18 @@ export const useStorage = create<StorageState>()((set) => ({
 
 export const useStorages = create<StoragesState>()((set) => ({
 	storages: [],
-	addStorage: (newStorage) =>
-		set(({ storages }) => ({ storages: storages.concat(newStorage) })),
+	addStorage: async (newStorage, token, cb) => {
+		try {
+			const result = await postStorage(newStorage, token);
+			console.log({ result });
+
+			set(({ storages }) => ({ storages: storages.concat(result) }));
+
+			cb?.();
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	removeStorage: (id) =>
 		set(({ storages }) => {
 			const filterStorages = storages.filter((s) => s.id !== id);

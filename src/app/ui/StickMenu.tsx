@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../state/user';
 import { bem } from '../utils/classnames';
 import { removeLocalStorageUser } from '../utils/localObject';
+import NavButton from './NavButton';
 
 const [block, elementGenerator] = bem('menu');
 const [elementBurgerIcon] = elementGenerator('burger-icon');
 const [elementBurgerMenu] = elementGenerator('burger-menu');
-const [elementUser] = elementGenerator('user');
+const [blockUser] = bem('profile-panel');
+const [elementContent] = elementGenerator('content');
 
-const StickMenu = () => {
+const StickMenu: React.FC = () => {
 	const { clearUser } = useUser();
 	const navigate = useNavigate();
 
@@ -17,9 +19,11 @@ const StickMenu = () => {
 
 	const burgerMenu = () => (
 		<div className={`${elementBurgerMenu} ${isOpen ? 'active' : ''}`}>
-			<div>Главная</div>
-			<div>Баланс</div>
-			<div>Помощь</div>
+			<div className={elementContent}>
+				<div>Главная</div>
+				<NavButton to='new-transaction' text='Добавить' />
+				<div>Выйти</div>
+			</div>
 		</div>
 	);
 
@@ -39,22 +43,23 @@ const StickMenu = () => {
 	};
 
 	return (
-		<div className={block}>
-			<div
-				className={elementBurgerIcon}
-				onClick={() => {
-					setIsOpen((state) => !state);
-				}}
-			>
+		<>
+			<div className={block}>
+				<div
+					className={elementBurgerIcon}
+					onClick={() => {
+						setIsOpen((state) => !state);
+					}}
+				></div>
 				{hamburger()}
 				{burgerMenu()}
 			</div>
-			<div className={elementUser}>
+			<div className={blockUser}>
 				<div>notification</div>
 				<div>profile</div>
 				<button onClick={onClick}>Выйти</button>
 			</div>
-		</div>
+		</>
 	);
 };
 
