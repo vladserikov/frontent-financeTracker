@@ -1,4 +1,4 @@
-export const svgPlus = (
+export const plusSvg = (
 	<svg
 		width='16'
 		height='15'
@@ -15,3 +15,4 @@ export const svgPlus = (
 		/>
 	</svg>
 );
+

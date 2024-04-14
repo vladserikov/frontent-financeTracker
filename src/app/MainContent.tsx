@@ -1,18 +1,16 @@
 import StickMenu from './ui/StickMenu';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { createContext, useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useStorages } from '../state/storages';
 import { useUser } from '../state/user';
 import { User } from './types';
 
-import ModalAdd from './storages/ModalAdd';
 import { getAllStorages } from './storages/utils/storages';
 import { bem } from './utils/classnames';
 
 const [blockHome] = bem('home');
-const [homeLayer] = bem('layer');
+const [mainLayer] = bem('layer');
 
 type ModalState = {
 	open: boolean;
@@ -43,7 +41,6 @@ const Modal: React.FC<Modal> = () => {
 					Close
 				</div>
 				Modal
-				<ModalAdd />
 			</div>
 			<div className='overlay'></div>
 		</div>
@@ -53,8 +50,6 @@ const Modal: React.FC<Modal> = () => {
 function MainContent() {
 	const { user } = useUser();
 	const { initStorages } = useStorages();
-
-	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	useEffect(() => {
 		const fn = async () => {
@@ -73,15 +68,8 @@ function MainContent() {
 
 	return (
 		<div className={blockHome}>
-			<ModalStateContext.Provider
-				value={{ setOpen: setIsOpenModal, open: isOpenModal }}
-			>
-				<StickMenu />
-				<div className={homeLayer}>
-					<Outlet context={user satisfies User | null} />
-				</div>
-				{isOpenModal && createPortal(<Modal />, getHomeContainer())}
-			</ModalStateContext.Provider>
+			<StickMenu />
+			<Outlet context={user satisfies User | null} />
 		</div>
 	);
 }

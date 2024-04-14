@@ -1,6 +1,7 @@
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { create } from 'zustand';
-import { postStorage } from '../app/storages/utils/storages';
+import { postStorage, putStorage } from '../app/storages/utils/storages';
+import { Storage } from '../app/types';
 import { StoragesState, StorageState } from './types';
 
 export const useStorage = create<StorageState>()((set) => ({
@@ -41,6 +42,16 @@ export const useStorages = create<StoragesState>()((set) => ({
 			return { storages: filterStorages };
 		}),
 	initStorages: (storages) => set(() => ({ storages })),
+	updateStorage: async (id, updateStorage, token) => {
+		try {
+			const data = await putStorage<Storage>(id, updateStorage, token);
+			set(({ storages }) => {
+				return { storages: storages.map((s) => (s.id === id ? data : s)) };
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	},
 }));
 
 if (process.env.NODE_ENV === 'development') {

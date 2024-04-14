@@ -1,0 +1,49 @@
+.default-form {
+    height: 100%;
+    width: 100%;
+
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+    &__header {
+        font-weight: bold;
+        font-size: 24px;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    &__content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+.form-wrapper {
+    grid-area: 1 / 2 / 3 / 3;
+    position: relative;
+    margin: 5vw;
+    background-color: var(--background-color);
+    height: 100%;
+
+    &__button {
+
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        right: calc(16px + 32px);
+        top: 16px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .form-wrapper {
+        grid-area: 2 / 1 / last-line / last-line;
+    }
+}

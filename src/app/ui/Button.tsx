@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { bem } from '../utils/classnames';
 
@@ -8,11 +9,12 @@ type ButtonProps = {
 	className?: string;
 };
 
-export const [block] = bem('default-button');
+export const [defaultButtonBlock] = bem('default-button');
 
 const Button: React.FC<ButtonProps> = ({ text, type, onClick, className }) => {
+	const classname = clsx([defaultButtonBlock, className]);
 	return (
-		<button onClick={onClick} type={type} className={`${block} ${className}`}>
+		<button onClick={onClick} type={type} className={classname}>
 			{text}
 		</button>
 	);

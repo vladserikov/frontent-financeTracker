@@ -3,11 +3,9 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useStorages } from '../../state/storages';
 import { User } from '../types';
 import Button from '../ui/Button';
+import FormElement from '../ui/FormElement';
+import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
-import { bem } from '../utils/classnames';
-
-const [formWrapper] = bem('form-wrapper');
-const [formBlock] = bem('form-block');
 
 const AddStorage = () => {
 	const { addStorage } = useStorages();
@@ -16,7 +14,6 @@ const AddStorage = () => {
 	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
-	// const [icon, setIcon] = useState('');
 	const [unit, setUnit] = useState('');
 	const [amount, setAmount] = useState('');
 	const [comment, setComment] = useState('');
@@ -27,23 +24,14 @@ const AddStorage = () => {
 			setState(value);
 		};
 
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
-
-		addStorage(
-			{ amount: parseFloat(amount), name, unit },
-			user?.token || '',
-			() => {
-				navigate(-1);
-			}
-		);
+	// Добавить нотификацию
+	const onSubmit = () => {
+		addStorage({ amount: parseFloat(amount), name, unit }, user?.token || '');
 	};
 
 	return (
-		<div className={formWrapper}>
-			<form onSubmit={onSubmit} className={formBlock}>
-				<div>Добавить счет</div>
+		<FormWrapper backAction>
+			<FormElement onSubmitAction={onSubmit} name='Добавить счет'>
 				<InputForm
 					onChange={onChangeState(setName)}
 					value={name}
@@ -51,13 +39,6 @@ const AddStorage = () => {
 					id='name'
 					placeholder='Название счета'
 				/>
-				{/* <InputForm
-					onChange={onChangeState(setIcon)}
-					value={icon}
-					id='icon'
-					placeholder='Icon'
-					type='image'
-				/> */}
 				<InputForm
 					onChange={onChangeState(setUnit)}
 					value={unit}
@@ -80,8 +61,8 @@ const AddStorage = () => {
 					type='text'
 				/>
 				<Button type='submit' text='Добавить' />
-			</form>
-		</div>
+			</FormElement>
+		</FormWrapper>
 	);
 };
 

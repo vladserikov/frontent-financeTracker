@@ -1,11 +1,13 @@
-.form-block {
-    margin: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.storages-layer {
+    grid-area: balance;
 }
 
 .storages {
+
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
 
     &__header {
         display: flex;
@@ -35,135 +37,78 @@
 
 }
 
-.card {
-    background-color: var(--background-element);
-    margin-right: 8px;
-    padding: 15px;
-    border-radius: 15px;
-    min-width: 188px;
+.total-layer {
+    grid-area: data;
 
-    color: var(--button-selected-color);
-    min-height: 150px;
-    box-shadow: var(--card-storage-shadow);
-
-    transition: all .3s;
-
-    position: relative;
-
-    &__edit-btn {
-        position: absolute;
-
-        right: 20px;
-        top: 25px;
-    }
-
-    &__content {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    &__icon {
-        width: 55px;
-        height: 55px;
-        background-color: var(--selected-wallet);
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 56px;
-    }
-
-    &__amount {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    &__name {
-        font-size: 12px;
-    }
-
-    &--selected {
-        background-color: var(--selected-wallet);
-        color: var(--background-color);
-
-        .card__icon {
-
-            background-color: var(--background-color);
-
-            svg {
-                path {
-                    fill: var(--button-default-text-color);
-                }
-            }
-        }
-
-    }
 }
 
-.data-layer {
-    // height: 150px;
+.graph-layer {
+    grid-area: graph;
 }
 
-.data {
+.total {
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
+}
 
+.value-card {
+    width: 30%;
 
-    &-card {
-        width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
 
+    &__name {
+        margin-bottom: 16px;
+    }
+
+    &__wrapper {
+        background-color: var(--background-element);
+        max-height: 80px;
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
+        justify-content: space-around;
+        gap: 8px;
+    }
 
-        &__name {
-            margin-bottom: 16px;
-        }
+    &__icon {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        &__wrapper {
-            background-color: var(--background-element);
-            max-height: 80px;
-            width: 100%;
-            padding: 8px;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            gap: 8px;
-        }
+        border-radius: 56px;
+        background-color: var(--background-color);
 
-        &__icon {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        &>svg {
+            width: 15px;
 
-            border-radius: 56px;
-            background-color: var(--background-color);
-
-            &> svg{
-                width: 15px;
-                > path {
-                    fill: var(--selected-wallet);
-                }
+            >path {
+                fill: var(--selected-wallet);
             }
         }
     }
 }
 
 .history-layer {
-
+    grid-area: history;
 }
 
 .history {
-    &__header, &__choice-btn {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__header,
+    &__choice-btn {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -173,13 +118,75 @@
 
     &__choice-btn {
         gap: 16px;
-        > button {
+
+        >button {
             width: 50%;
         }
 
         &--select {
             background-color: var(--button-default-color);
             color: var(--button-default-text-color);
+        }
+    }
+
+    &__tape {
+        overflow-y: auto;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.history-card {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 16px;
+    gap: 4px;
+    align-items: center;
+    row-gap: 8px;
+
+    &__amount,
+    &__btn {
+        justify-self: end;
+    }
+}
+
+.change-transaction {
+    display: flex;
+    justify-content: space-between;
+
+    &__selected {
+        background-color: var(--background-element);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .total-layer {
+        max-height: 150px;
+    }
+
+    .storages-layer {
+        padding: 0;
+
+        .layer-header {
+            margin-left: 24px;
+            margin-right: 24px;
+            margin-top: 24px;
+
+        }
+
+        .storages__cards {
+            width: auto;
+            margin-left: 24px;
+
+            margin-top: 24px;
+            margin-bottom: 24px;
         }
     }
 }

@@ -3,7 +3,7 @@ import { bem } from '../utils/classnames';
 
 type InputForm = {
 	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
-	placeholder: string;
+	placeholder?: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
 	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
 	id: string;

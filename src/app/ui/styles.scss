@@ -37,7 +37,7 @@
     transition-duration: 0.3s;
     transition-property: all;
     transition-delay: 0s;
-    min-height: 2.5rem;
+
     display: block;
     text-align: center;
 
@@ -46,5 +46,25 @@
     }
 }
 
+.layer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
 
-@import './stick.scss'
+    &__name {
+        font-weight: bold;
+        color: var(--button-default-text-color);
+        font-size: 24px;
+    }
+
+    &__button {
+        height: 32px;
+    }
+}
+
+
+@import './stick.scss';
+@import './card.scss';
+@import './formElement.scss';
+@import './editBtn.scss';

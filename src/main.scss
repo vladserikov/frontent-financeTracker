@@ -8,14 +8,14 @@
     --button-default-color: #C9CACB; // 04
     --button-default-color-light: #c9cacbaa;
     --button-selected-text-color: #FFFFFF; // 09
-    --selected-menu: #EEEEEE; // 05
+    --app-background: #EEEEEE; // 05
     --selected-wallet: #C4A577; // 06
     --selected-wallet-dark: #a88e66; // 06
     --background-element: #F3EDE4; // 08
     --background-element-dark: #eeddc1; // 08
     --background-color: #FFFFFF; // 09
     --border-radius-default: 8px;
-    --card-shadow: 4px 4px 25px 4px rgba(0,0,0,0.6);
+    --card-shadow: 4px 4px 25px 4px rgba(0, 0, 0, 0.6);
     --border-selected: 2px solid var(--selected-wallet);
     --border-default: 2px solid transparent;
     --card-storage-shadow: 1px 1px 0px 0px var(--background-element);
@@ -34,9 +34,9 @@
 
 
 .app {
-    background-color: var(--background-color);
+    background-color: var(--app-background);
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     color: var(--button-default-text-color);
 }
 

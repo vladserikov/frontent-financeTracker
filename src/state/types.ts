@@ -20,5 +20,6 @@ export type StoragesState = {
 	addStorage: (newStorage: NewStorage, token: string, cb?: () => void) => void;
 	removeStorage: (id: string) => void;
 	initStorages: (storages: Storage[]) => void;
+	updateStorage: (id: string, storage: NewStorage, token: string) => void;
 };
 

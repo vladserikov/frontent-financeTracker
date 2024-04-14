@@ -2,20 +2,23 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStorage } from '../../state/storages';
 import { useUser } from '../../state/user';
-import { Transaction } from '../types';
+import { NewTransaction, Transaction } from '../types';
 import Button from '../ui/Button';
+import FormElement from '../ui/FormElement';
+import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
 import { bem } from '../utils/classnames';
 import { postTransaction } from './utils/storages';
 
-const [blockTransaction] = bem('transaction');
+const [changeBlock, changeElement] = bem('change-transaction');
+const [selectedElement] = changeElement('selected');
 
 const AddTransaction = () => {
 	const { storage } = useStorage();
 	const { user } = useUser();
 	const navigate = useNavigate();
 
-	const [formStatus, setFormStatus] = useState<Transaction>({
+	const [formStatus, setFormStatus] = useState<NewTransaction>({
 		amount: 0,
 		category: '',
 		comment: '',
@@ -46,15 +49,41 @@ const AddTransaction = () => {
 		};
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
 		await postTransaction(user.token, storage.id, formStatus);
 		navigate(-1);
 	};
 
+	const onChangeType = (type: NewTransaction['transactionType']) => () => {
+		if (formStatus.transactionType === type) return;
+		setFormStatus((state) => ({
+			...state,
+			transactionType: type,
+		}));
+	};
+
+	const header = () => (
+		<div className={changeBlock}>
+			<Button
+				text='Income'
+				type='button'
+				className={
+					formStatus.transactionType === 'Income' ? selectedElement : ''
+				}
+				onClick={onChangeType('Income')}
+			/>
+			<Button
+				text='Expense'
+				type='button'
+				className={
+					formStatus.transactionType === 'Expense' ? selectedElement : ''
+				}
+				onClick={onChangeType('Expense')}
+			/>
+		</div>
+	);
 	return (
-		<div className={blockTransaction}>
-			<div>{formStatus.transactionType}</div>
-			<form onSubmit={onSubmit}>
+		<FormWrapper backAction>
+			<FormElement name={header()} onSubmitAction={onSubmit}>
 				<InputForm
 					id='category'
 					placeholder='category'
@@ -69,13 +98,6 @@ const AddTransaction = () => {
 					onChange={onChangeForm('date')}
 					value={formStatus.date.toDateString()}
 				/>
-				{/* <InputForm
-					id='balance'
-					placeholder='Кашелек'
-					type='text'
-					onChange={}
-					value=''
-				/> */}
 				<InputForm
 					id='amount'
 					placeholder='amount'
@@ -83,10 +105,9 @@ const AddTransaction = () => {
 					onChange={onChangeForm('amount')}
 					value={formStatus.amount}
 				/>
-
 				<Button type='submit' text='Добавить' />
-			</form>
-		</div>
+			</FormElement>
+		</FormWrapper>
 	);
 };
 

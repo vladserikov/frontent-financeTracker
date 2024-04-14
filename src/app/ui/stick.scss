@@ -1,136 +1,195 @@
 .menu {
-    position: sticky;
-    background: var(--button-default-text-color);
+    grid-area: menu;
+
     display: flex;
-    flex-direction: row;
-    width: 100vw;
-    justify-content: space-between;
-    min-height: 3rem;
-    color: var(--button-default-text-color);
+    align-items: center;
+    justify-content: center;
 
-    z-index: 9999;
+    background-color: var(--button-default-text-color);
 
-    &__burger-icon {
-        min-width: 5rem;
-    }
-
-    &__burger-menu {
-
-        transition: .9s all cubic-bezier(0.175, 0.885, 0.32, 1);
-        position: absolute;
-
-        transform: translateX(-100%);
-
-        position: absolute;
-
-    }
+    border-radius: 0 8px 8px 0;
 
     &__content {
-        padding: 10px;
-        background-color: var(--background-color);
-        height: 50%;
-        border-radius: 8px;
-        transition: .5s
-    }
-}
+        min-width: 90px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 16px;
 
+        >a {
 
-.active.menu__burger-menu {
-    transform: translateX(0);
-    width: 100%;
-    background-color: rgba($color: #000000, $alpha: .6);
-    height: 100vh;
-    z-index: 9999;
-}
+            background-color: var(--button-default-text-color);
 
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 10px;
-    height: 100%;
-    padding: 5px 0;
-    z-index: 100;
-    gap: 3px;
-    transition: .5s all;
-
-
-    &-element {
-        transition: .5s all;
-        transform: rotate(0);
-        background-color: var(--background-element);
-
-        height: 3px;
-        border-radius: 10px;
-
-        &:nth-child(1),
-        &:nth-child(3) {
-            width: 3vw;
-            transform: rotate(0) translateY(0);
+            path,
+            circle {
+                fill: var(--app-background);
+            }
         }
 
-        &:nth-child(2) {
-            width: 4vw;
-            transform: translateX(0);
+
+        &>.active {
+
+            background-color: var(--app-background);
+            border-radius: 8px 0 0 8px;
+
+
+            path,
+            circle {
+                fill: var(--button-default-text-color);
+            }
+
         }
     }
+
+
 }
 
 
-.active.hamburger {
-    transform: translateX(20%);
-
-    .hamburger-element {
-        background: var(--selected-wallet);
-
-        &:nth-child(1) {
-            transform: rotate(205deg) translateY(-5px);
-        }
-
-        &:nth-child(3) {
-            transform: rotate(-205deg) translateY(5px);
-        }
-
-        &:nth-child(2) {
-            transform: translateX(-10px);
-            width: 0;
-            height: 0;
-        }
-
-    }
-}
-
-@media (min-width: 580px) {
+@media only screen and (max-width: 768px) {
     .menu {
-        width: 15vw;
-        max-width: 128px;
-        grid-area: menu;
-
-        &__burger-icon {
-            display: none;
-        }
-
-        &__burger-menu {
-            position: fixed;
-
-            transform: translateX(0);
-            height: 100%;
-        }
+        position: sticky;
+        border-radius: 0 0 8px 8px;
 
         &__content {
-            height: 100%;
-            border-radius: 0;
-            padding: 0;
-            background-color: inherit;
-            color: ;
+            flex-direction: row;
         }
     }
-
-    .hamburger {
-        display: none;
-    }
-
-    .profile-panel {
-        grid-area: header;
-    }
 }
+
+// .menu {
+//     position: sticky;
+//     background: var(--button-default-text-color);
+//     display: flex;
+//     flex-direction: row;
+//     width: 100vw;
+//     justify-content: space-between;
+//     min-height: 3rem;
+//     color: var(--button-default-text-color);
+
+//     z-index: 9999;
+
+//     &__burger-icon {
+//         min-width: 5rem;
+//     }
+
+//     &__burger-menu {
+
+//         transition: .9s all cubic-bezier(0.175, 0.885, 0.32, 1);
+//         position: absolute;
+
+//         transform: translateX(-100%);
+
+//         position: absolute;
+
+//     }
+
+//     &__content {
+//         padding: 10px;
+//         background-color: var(--background-color);
+//         height: 50%;
+//         border-radius: 8px;
+//         transition: .5s
+//     }
+// }
+
+
+// .active.menu__burger-menu {
+//     transform: translateX(0);
+//     width: 100%;
+//     background-color: rgba($color: #000000, $alpha: .6);
+//     height: 100vh;
+//     z-index: 9999;
+// }
+
+// .hamburger {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     margin-left: 10px;
+//     height: 100%;
+//     padding: 5px 0;
+//     z-index: 100;
+//     gap: 3px;
+//     transition: .5s all;
+
+
+//     &-element {
+//         transition: .5s all;
+//         transform: rotate(0);
+//         background-color: var(--background-element);
+
+//         height: 3px;
+//         border-radius: 10px;
+
+//         &:nth-child(1),
+//         &:nth-child(3) {
+//             width: 3vw;
+//             transform: rotate(0) translateY(0);
+//         }
+
+//         &:nth-child(2) {
+//             width: 4vw;
+//             transform: translateX(0);
+//         }
+//     }
+// }
+
+
+// .active.hamburger {
+//     transform: translateX(20%);
+
+//     .hamburger-element {
+//         background: var(--selected-wallet);
+
+//         &:nth-child(1) {
+//             transform: rotate(205deg) translateY(-5px);
+//         }
+
+//         &:nth-child(3) {
+//             transform: rotate(-205deg) translateY(5px);
+//         }
+
+//         &:nth-child(2) {
+//             transform: translateX(-10px);
+//             width: 0;
+//             height: 0;
+//         }
+
+//     }
+// }
+
+// @media (min-width: 580px) {
+//     .menu {
+//         width: 8vw;
+//         min-width: 90px;
+//         grid-area: menu;
+
+//         &__burger-icon {
+//             display: none;
+//         }
+
+//         &__burger-menu {
+//             position: fixed;
+
+//             transform: translateX(0);
+//             height: 100%;
+
+//         }
+
+//         &__content {
+//             height: 100%;
+//             border-radius: 0;
+//             padding: 0;
+//             background-color: inherit;
+//             // color: ;
+//         }
+//     }
+
+//     .hamburger {
+//         display: none;
+//     }
+
+//     .profile-panel {
+//         grid-area: header;
+//         background-color: inherit;
+//     }
+// }

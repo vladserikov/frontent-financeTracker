@@ -11,7 +11,10 @@ export type Transaction = {
 	date: Date;
 	comment: string;
 	transactionType: 'Income' | 'Expense';
+	id: string;
 };
+
+export type NewTransaction = Omit<Transaction, 'id'>;
 
 export type Storage = {
 	name: string;

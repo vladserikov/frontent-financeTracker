@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { block } from './Button';
+import { defaultButtonBlock } from './Button';
 
 type ButtonMenu = {
 	to: string;
@@ -10,8 +11,9 @@ type ButtonMenu = {
 };
 
 const NavButton: React.FC<ButtonMenu> = ({ text, to, className, icon }) => {
+	const classname = clsx([defaultButtonBlock, className]);
 	return (
-		<NavLink to={to} className={`${block} ${className}`}>
+		<NavLink to={to} className={classname}>
 			{icon} {text}
 		</NavLink>
 	);

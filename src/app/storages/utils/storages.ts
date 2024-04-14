@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Storage, Transaction } from './../../types';
+import { NewTransaction, Storage } from './../../types';
 
 const getHeader = (token: string): { Authorization: string } => ({
 	Authorization: `Bearer ${token}`,
@@ -7,11 +7,11 @@ const getHeader = (token: string): { Authorization: string } => ({
 
 const baseUrl = '/api/storage';
 export const getAllStorages = async (token: string) => {
-	const request = await axios.get(baseUrl, {
+	const { data } = await axios.get(baseUrl, {
 		headers: getHeader(token),
 	});
 
-	return request.data;
+	return data;
 };
 
 export type NewStorage = Pick<Storage, 'name' | 'amount' | 'unit'>;
@@ -24,12 +24,24 @@ export const postStorage = async (newStorage: NewStorage, token: string) => {
 	return data;
 };
 
+export const putStorage = async <T>(
+	id: string,
+	newStorage: NewStorage,
+	token: string
+): Promise<T> => {
+	const { data } = await axios.put(`${baseUrl}/${id}`, newStorage, {
+		headers: getHeader(token),
+	});
+
+	return data;
+};
+
 const testApi = '/api/transaction';
 
 export const postTransaction = async (
 	token: string,
 	storageId: string,
-	newTransaction: Transaction
+	newTransaction: NewTransaction
 ) => {
 	const { data } = await axios.post(
 		testApi,
@@ -41,3 +53,4 @@ export const postTransaction = async (
 
 	return data;
 };
+
