@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStorage } from '../../state/storages';
-import { useUser } from '../../state/user';
 import { NewTransaction, Transaction } from '../types';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
 import { bem } from '../utils/classnames';
-import { postTransaction } from './utils/storages';
+import { postTransaction } from './utils/transactions';
 
 const [changeBlock, changeElement] = bem('change-transaction');
 const [selectedElement] = changeElement('selected');
 
 const AddTransaction = () => {
 	const { storage } = useStorage();
-	const { user } = useUser();
 	const navigate = useNavigate();
 
 	const [formStatus, setFormStatus] = useState<NewTransaction>({
@@ -27,14 +25,9 @@ const AddTransaction = () => {
 		unit: 'USD',
 	});
 
-	if (!user) {
-		return <div>Login please</div>;
-	}
-
 	const onChangeForm =
 		(category: keyof Transaction) =>
 		({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
-			console.log({ value });
 			if (category === 'amount') {
 				setFormStatus((state) => ({
 					...state,
@@ -48,8 +41,8 @@ const AddTransaction = () => {
 			}));
 		};
 
-	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		await postTransaction(user.token, storage.id, formStatus);
+	const onSubmit = async () => {
+		await postTransaction(storage.id, formStatus);
 		navigate(-1);
 	};
 

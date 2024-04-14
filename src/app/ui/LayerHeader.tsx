@@ -1,6 +1,6 @@
 import React from 'react';
 import { bem } from '../utils/classnames';
-import NavButton from './NavButton';
+import ButtonIcon from './ButtonIcon';
 
 const [headerBlock, headerElement] = bem('layer-header');
 const [nameElement] = headerElement('name');
@@ -16,12 +16,12 @@ type LayerHeaderProps = {
 	};
 };
 
-const LayerHeader: React.FC<LayerHeaderProps> = ({ icon, name, button }) => {
+const LayerHeader: React.FC<LayerHeaderProps> = ({ name, button }) => {
 	return (
 		<div className={headerBlock}>
 			<div className={nameElement}>{name}</div>
 			<div>
-				<NavButton
+				<ButtonIcon
 					to={button.to}
 					icon={button.icon}
 					className={buttonElement}

@@ -5,9 +5,9 @@ import { bem } from '../utils/classnames';
 import NavButton from './NavButton';
 
 const [blockMenu, elementGenerator] = bem('menu');
-const [elementBurgerIcon] = elementGenerator('burger-icon');
-const [elementBurgerMenu] = elementGenerator('burger-menu');
-const [blockUser] = bem('profile-panel');
+// const [elementBurgerIcon] = elementGenerator('burger-icon');
+// const [elementBurgerMenu] = elementGenerator('burger-menu');
+// const [blockUser] = bem('profile-panel');
 const [elementContent] = elementGenerator('content');
 
 type NavigationPathProps = {

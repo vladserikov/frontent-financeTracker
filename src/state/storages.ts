@@ -1,6 +1,10 @@
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { create } from 'zustand';
-import { postStorage, putStorage } from '../app/storages/utils/storages';
+import {
+	postStorage,
+	putStorage,
+	removeStorage,
+} from '../app/storages/utils/storages';
 import { Storage } from '../app/types';
 import { StoragesState, StorageState } from './types';
 
@@ -24,27 +28,31 @@ export const useStorage = create<StorageState>()((set) => ({
 
 export const useStorages = create<StoragesState>()((set) => ({
 	storages: [],
-	addStorage: async (newStorage, token, cb) => {
+	addStorage: async (newStorage) => {
 		try {
-			const result = await postStorage(newStorage, token);
-			console.log({ result });
+			const result = await postStorage(newStorage);
 
 			set(({ storages }) => ({ storages: storages.concat(result) }));
-
-			cb?.();
 		} catch (error) {
 			console.log(error);
 		}
 	},
-	removeStorage: (id) =>
-		set(({ storages }) => {
-			const filterStorages = storages.filter((s) => s.id !== id);
-			return { storages: filterStorages };
-		}),
-	initStorages: (storages) => set(() => ({ storages })),
-	updateStorage: async (id, updateStorage, token) => {
+	removeStorage: async (id) => {
 		try {
-			const data = await putStorage<Storage>(id, updateStorage, token);
+			const result = await removeStorage(id);
+			console.log({ result });
+			set(({ storages }) => {
+				const filterStorages = storages.filter((s) => s.id !== id);
+				return { storages: filterStorages };
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	initStorages: (storages) => set(() => ({ storages })),
+	updateStorage: async (id, updateStorage) => {
+		try {
+			const data = await putStorage<Storage>(id, updateStorage);
 			set(({ storages }) => {
 				return { storages: storages.map((s) => (s.id === id ? data : s)) };
 			});

@@ -26,7 +26,6 @@ const StorageCard: React.FC<StorageCartProps> = ({
 	amount,
 	name,
 	unit,
-	onEdit,
 	onSelect,
 	isSelected,
 	id,

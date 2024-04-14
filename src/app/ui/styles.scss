@@ -41,8 +41,19 @@
     display: block;
     text-align: center;
 
-    &:hover {
-        background-color: var(--button-selected-color-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    padding: 10px 30px;
+
+
+    &--icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--border-radius-default);
+        padding: 0;
     }
 }
 
@@ -51,15 +62,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 4px;
+    margin-bottom: 16px;
 
     &__name {
         font-weight: bold;
         color: var(--button-default-text-color);
         font-size: 24px;
-    }
-
-    &__button {
-        height: 32px;
     }
 }
 

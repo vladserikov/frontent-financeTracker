@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useStorages } from '../../state/storages';
-import { User } from '../types';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
@@ -9,9 +7,6 @@ import InputForm from '../ui/InputForm';
 
 const AddStorage = () => {
 	const { addStorage } = useStorages();
-	const user = useOutletContext<User | null>();
-
-	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
 	const [unit, setUnit] = useState('');
@@ -26,7 +21,7 @@ const AddStorage = () => {
 
 	// Добавить нотификацию
 	const onSubmit = () => {
-		addStorage({ amount: parseFloat(amount), name, unit }, user?.token || '');
+		addStorage({ amount: parseFloat(amount), name, unit });
 	};
 
 	return (

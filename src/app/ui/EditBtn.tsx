@@ -11,6 +11,7 @@ type EditBtnProps = {
 };
 
 const [btnBlock] = bem('default-edit');
+
 const EditBtn: React.FC<EditBtnProps> = ({ to, className, icon, text }) => {
 	const classnames = clsx([btnBlock, className]);
 	return (
@@ -21,3 +22,4 @@ const EditBtn: React.FC<EditBtnProps> = ({ to, className, icon, text }) => {
 };
 
 export default EditBtn;
+

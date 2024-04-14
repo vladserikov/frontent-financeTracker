@@ -12,7 +12,7 @@ const [element] = elementGenerator('user');
 
 const AuthUser = () => {
 	const { pathname } = useLocation();
-	console.log({ pathname });
+
 	const [currentForm, setCurrentForm] = useState<'login' | 'registration'>(
 		'login'
 	);

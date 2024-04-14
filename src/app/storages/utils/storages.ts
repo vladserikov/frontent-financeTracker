@@ -1,14 +1,20 @@
 import axios from 'axios';
-import { NewTransaction, Storage } from './../../types';
-
-const getHeader = (token: string): { Authorization: string } => ({
-	Authorization: `Bearer ${token}`,
-});
+import { Storage } from './../../types';
 
 const baseUrl = '/api/storage';
-export const getAllStorages = async (token: string) => {
+let TOKEN: string | null = null;
+
+export const initToken = (newToken: string) => {
+	TOKEN = newToken;
+};
+
+export const getHeader = (): { Authorization: string } => ({
+	Authorization: `Bearer ${TOKEN}`,
+});
+
+export const getAllStorages = async () => {
 	const { data } = await axios.get(baseUrl, {
-		headers: getHeader(token),
+		headers: getHeader(),
 	});
 
 	return data;
@@ -16,9 +22,9 @@ export const getAllStorages = async (token: string) => {
 
 export type NewStorage = Pick<Storage, 'name' | 'amount' | 'unit'>;
 
-export const postStorage = async (newStorage: NewStorage, token: string) => {
+export const postStorage = async (newStorage: NewStorage) => {
 	const { data } = await axios.post(baseUrl, newStorage, {
-		headers: getHeader(token),
+		headers: getHeader(),
 	});
 
 	return data;
@@ -26,31 +32,20 @@ export const postStorage = async (newStorage: NewStorage, token: string) => {
 
 export const putStorage = async <T>(
 	id: string,
-	newStorage: NewStorage,
-	token: string
+	newStorage: NewStorage
 ): Promise<T> => {
 	const { data } = await axios.put(`${baseUrl}/${id}`, newStorage, {
-		headers: getHeader(token),
+		headers: getHeader(),
 	});
 
 	return data;
 };
 
-const testApi = '/api/transaction';
+export const removeStorage = async (id: string) => {
+	const result = await axios.delete(`${baseUrl}/${id}`, {
+		headers: getHeader(),
+	});
 
-export const postTransaction = async (
-	token: string,
-	storageId: string,
-	newTransaction: NewTransaction
-) => {
-	const { data } = await axios.post(
-		testApi,
-		{ ...newTransaction, storageId },
-		{
-			headers: getHeader(token),
-		}
-	);
-
-	return data;
+	return result;
 };
 

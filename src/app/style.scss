@@ -38,10 +38,9 @@
 @media only screen and (max-width: 768px) {
     .home {
         grid-template-columns: 1fr;
-        grid-template-rows: 80px 1fr;
+        grid-template-rows: 80px auto;
         grid-template-areas:
             "menu"
-            "content"
             "content";
     }
 

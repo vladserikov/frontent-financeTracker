@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import {
+	KeysStatistics,
+	StatisticsTransaction,
+} from '../statistics/Statistics';
 import { plusSvg } from '../svg/plus';
 import Button from '../ui/Button';
 import LayerHeader from '../ui/LayerHeader';
 import { bem } from '../utils/classnames';
 import CardHistory from './CardHistory';
-import { KeysStatistics, StatisticsTransaction } from './Statistics';
 
 const [historyLayer] = bem('history-layer');
 const [historyBlock, historyElement] = bem('history');

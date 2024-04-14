@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useStorage, useStorages } from '../../state/storages';
-import { useUser } from '../../state/user';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
@@ -10,17 +9,12 @@ const EditStorage = () => {
 	const { storage } = useStorage();
 	const { updateStorage } = useStorages();
 
-	const { user } = useUser();
-
 	const { amount, name, unit } = storage;
 
 	const [storageName, setStorageName] = useState(name);
 	const [storageAmount, setStorageAmount] = useState(amount.toString());
 	const [storageUnit, setStorageUnit] = useState(unit);
 
-	if (!user) {
-		return <>download</>;
-	}
 	const onChangeState =
 		(setState: React.Dispatch<React.SetStateAction<string>>) =>
 		({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
@@ -28,16 +22,12 @@ const EditStorage = () => {
 		};
 
 	const onSubmit = () => {
-		updateStorage(
-			storage.id,
-			{
-				...storage,
-				amount: parseFloat(storageAmount),
-				name: storageName,
-				unit: storageUnit,
-			},
-			user.token
-		);
+		updateStorage(storage.id, {
+			...storage,
+			amount: parseFloat(storageAmount),
+			name: storageName,
+			unit: storageUnit,
+		});
 	};
 
 	return (

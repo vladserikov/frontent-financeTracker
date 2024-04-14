@@ -34,10 +34,12 @@
     &__button {
 
         position: absolute;
-        height: 32px;
-        width: 32px;
+        height: 36px;
+        width: 36px;
         right: calc(16px + 32px);
         top: 16px;
+        padding: 0;
+        border-radius: 3px;
     }
 }
 

@@ -1,8 +1,8 @@
 import { useStorage } from '../../state/storages';
+import GeneralHistory from '../history/GeneralHistory';
 import { arrowSvg } from '../svg/arrow';
 import { balanceSvg } from '../svg/balance';
 import { Storage, Transaction } from '../types';
-import GeneralHistory from './GeneralHistory';
 import StatisticGraph from './StatisticGraph';
 import TotalCards from './TotalCards';
 

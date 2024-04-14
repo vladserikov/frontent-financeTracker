@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { defaultButtonBlock } from './Button';
 
-type ButtonMenu = {
+export type ButtonMenu = {
 	to: string;
 	className?: string;
 	text?: string;
@@ -12,6 +12,7 @@ type ButtonMenu = {
 
 const NavButton: React.FC<ButtonMenu> = ({ text, to, className, icon }) => {
 	const classname = clsx([defaultButtonBlock, className]);
+
 	return (
 		<NavLink to={to} className={classname}>
 			{icon} {text}
