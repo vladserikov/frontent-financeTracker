@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
 import { balanceSvg } from '../svg/balance';
 import { homeSvg } from '../svg/home';
 import { menuSvg } from '../svg/menu';
@@ -44,6 +45,7 @@ const navPath: NavigationPath = {
 };
 
 const Menu: React.FC = () => {
+	const { updateUser } = useContext(UserContext);
 	const navigate = useNavigate();
 	const [isHide, setIsHide] = useState(true);
 	const menuIconClassnames = clsx([
@@ -52,7 +54,9 @@ const Menu: React.FC = () => {
 		!isHide && 'open',
 	]);
 
-	const navigationClassnames = clsx([elementContent, isHide && 'hidden']);
+	const navigationClassnames = clsx([elementContent], {
+		hidden: isHide,
+	});
 
 	const onCloseMenu = () => {
 		if (isHide) return;
@@ -62,6 +66,7 @@ const Menu: React.FC = () => {
 	const onExit = () => {
 		removeUserCookie();
 		navigate('/');
+		updateUser(null);
 	};
 
 	return (

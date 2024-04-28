@@ -1,9 +1,9 @@
 // import { NavLink, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { bem } from '../app/utils/classnames';
-import Login from './login/Login';
-import Registration from './registration/Registration';
+// import Login from './login/Login';
+// import Registration from './registration/Registration';
 import Stub from './Stub';
 
 const [wrap] = bem('wrap');
@@ -30,7 +30,7 @@ const AuthUser = () => {
 					type={currentForm === 'registration' ? 'login' : 'registration'}
 				/>
 				<div className={element}>
-					{currentForm === 'login' ? <Login /> : <Registration />}
+					<Outlet />
 				</div>
 			</div>
 		</div>

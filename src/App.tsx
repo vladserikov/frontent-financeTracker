@@ -39,8 +39,6 @@ function App() {
 				username: getCookie('username'),
 				name: getCookie('name'),
 			};
-
-			console.log({ cUser });
 			if (cUser.username) setCurrentUser(cUser);
 		}
 	}, [currentUser]);
@@ -54,12 +52,15 @@ function App() {
 					<Route
 						path='/'
 						element={
-							<Navigate replace to={currentUser ? '/app/main' : '/auth'} />
+							<Navigate
+								replace
+								to={currentUser ? '/app/main' : '/auth/login'}
+							/>
 						}
 						errorElement={<ErrorElement />}
 					/>
 					<Route path='/auth' element={<AuthUser />}>
-						<Route path='login' element={<Login />} />
+						<Route path='login' index element={<Login />} />
 						<Route path='registration' element={<Registration />} />
 					</Route>
 					<Route
@@ -67,6 +68,7 @@ function App() {
 						element={<MainContainer />}
 						errorElement={<ErrorElement />}
 					>
+						<Route path='main/add-wallet' element={<AddWallet />} />
 						<Route path='main/:id' element={<EditWallet />} />
 						<Route path='main/*' index element={<ContentContainer />} />
 						<Route path='transactions/:id' element={<EditTransaction />} />
@@ -75,7 +77,6 @@ function App() {
 							element={<AddTransaction />}
 						/>
 						<Route path='transactions' element={<NewTransaction />} />
-						<Route path='add-wallet' element={<AddWallet />} />
 						<Route path='profile' element={<Profile />} />
 					</Route>
 				</Routes>

@@ -20,7 +20,6 @@ const AddWallet = () => {
 			setState(value);
 		};
 
-	// Добавить нотификацию
 	const onSubmit = () => {
 		createWallet({ amount: parseFloat(amount), name, unit });
 	};

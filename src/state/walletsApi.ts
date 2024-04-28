@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Wallet } from '../app/types';
+import type { Wallet } from '../app/types';
 import { getCookie } from '../app/utils/localObject';
 
 export const walletApi = createApi({
 	reducerPath: 'walletApi',
-	tagTypes: ['Wallets'],
+	tagTypes: ['Wallets', 'Transaction'],
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'http://localhost:3001/api',
 	}),
 	endpoints: (build) => ({
-		getAllWallets: build.query({
+		getAllWallets: build.query<Wallet[], any>({
 			query: () => ({
 				url: 'wallet',
 				mode: 'cors',
@@ -34,8 +34,46 @@ export const walletApi = createApi({
 			}),
 			invalidatesTags: ['Wallets'],
 		}),
+		editWallet: build.mutation<Wallet, Wallet>({
+			query: (body) => ({
+				url: `wallet/${body.id}`,
+				method: 'PUT',
+				mode: 'cors',
+				headers: {
+					Authorization: `Bearer ${getCookie('token')}`,
+				},
+				body,
+			}),
+			invalidatesTags: ['Wallets'],
+		}),
+		getTransaction: build.query({
+			query: (id: string) => ({
+				url: `transaction/${id}`,
+				mode: 'cors',
+				headers: {
+					Authorization: `Bearer ${getCookie('token')}`,
+				},
+			}),
+		}),
+		addTransaction: build.mutation<Wallet, Omit<Wallet, 'id' | 'transactions'>>(
+			{
+				query: (body) => ({
+					url: 'transaction',
+					headers: {
+						Authorization: `Bearer ${getCookie('token')}`,
+					},
+					body,
+				}),
+				invalidatesTags: ['Wallets'],
+			}
+		),
 	}),
 });
 
-export const { useCreateWalletMutation, useGetAllWalletsQuery } = walletApi;
+export const {
+	useCreateWalletMutation,
+	useGetAllWalletsQuery,
+	useEditWalletMutation,
+	useGetTransactionQuery,
+} = walletApi;
 

@@ -4,9 +4,10 @@ import { bem } from '../utils/classnames';
 type InputForm = {
 	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
 	placeholder?: string;
-	onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
 	id: string;
+	required?: boolean;
 };
 
 const [block, elementGenerator] = bem('input-block');
@@ -18,6 +19,7 @@ const InputForm: React.FC<InputForm> = ({
 	onChange,
 	value,
 	id,
+	required,
 }) => {
 	return (
 		<div className={block}>
@@ -28,6 +30,7 @@ const InputForm: React.FC<InputForm> = ({
 				className={element}
 				onChange={onChange}
 				value={value}
+				required={required}
 			/>
 		</div>
 	);

@@ -26,11 +26,19 @@ export const walletSlicer = createSlice({
 		initWallet: (_state, action: PayloadAction<Wallet>) => {
 			return action.payload;
 		},
+		changeWallet: (_state, action: PayloadAction<Wallet>) => {
+			return action.payload;
+		},
 	},
 });
 
-export const { changeAmount, changeName, changeUnit, initWallet } =
-	walletSlicer.actions;
+export const {
+	changeAmount,
+	changeName,
+	changeUnit,
+	initWallet,
+	changeWallet,
+} = walletSlicer.actions;
 
 export const walletReducer = walletSlicer.reducer;
 

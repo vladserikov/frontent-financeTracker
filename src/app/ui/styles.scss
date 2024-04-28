@@ -55,6 +55,10 @@
         border-radius: var(--border-radius-default);
         padding: 0;
     }
+
+    &--disabled {
+        background-color: var(--button-default-color);
+    }
 }
 
 .layer-header {

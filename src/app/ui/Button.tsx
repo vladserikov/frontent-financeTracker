@@ -11,7 +11,9 @@ export type ButtonProps = {
 	disabled?: boolean;
 };
 
-export const [defaultButtonBlock] = bem('default-button');
+export const [defaultButtonBlock, , defaultButtonModification] =
+	bem('default-button');
+const disabledBlock = defaultButtonModification('disabled');
 
 const Button: React.FC<ButtonProps> = ({
 	text,
@@ -21,7 +23,9 @@ const Button: React.FC<ButtonProps> = ({
 	icon,
 	disabled,
 }) => {
-	const classname = clsx([defaultButtonBlock, className]);
+	const classname = clsx([defaultButtonBlock, className], {
+		[disabledBlock]: disabled,
+	});
 	return (
 		<button
 			onClick={onClick}

@@ -45,6 +45,7 @@ const Login = () => {
 					type='text'
 					value={username}
 					onChange={onChangeInput(setUsername)}
+					required
 				/>
 				<InputForm
 					id='password'
@@ -52,6 +53,7 @@ const Login = () => {
 					type='password'
 					value={password}
 					onChange={onChangeInput(setPassword)}
+					required
 				/>
 				<Button text='Войти' type='submit' />
 			</form>

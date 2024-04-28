@@ -26,14 +26,18 @@ const Wallets = () => {
 
 	const wallet = useSelector(walletsSelector);
 	const dispatch = useDispatch();
-	console.log({ hookData });
+
+	const selectWallet = (newWallet: Wallet) => {
+		dispatch(initWallet(newWallet));
+	};
+
 	useEffect(() => {
 		if (!wallet.id && wallets?.length) {
-			dispatch(initWallet(wallets[0]));
+			selectWallet(wallets[0]);
 		}
 	}, [wallets]);
 
-	if (isLoading) {
+	if (isLoading || !wallets) {
 		return <>Loading...</>;
 	}
 	const onSelectWallet =
@@ -41,12 +45,12 @@ const Wallets = () => {
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			e.stopPropagation();
 			if (wallet.id === newWallet.id) return;
-			dispatch(initWallet(newWallet));
+			selectWallet(newWallet);
 		};
 
 	const onEditWallet = (newWallet: Wallet) => () => {
 		if (wallet.id !== newWallet.id) {
-			dispatch(initWallet(newWallet));
+			selectWallet(newWallet);
 		}
 	};
 
@@ -56,19 +60,16 @@ const Wallets = () => {
 				<div className={walletsBlock}>
 					<LayerHeader
 						name='Счета'
-						button={{ to: '/app/add-wallet', icon: plusSvg }}
+						button={{ to: '/app/main/add-wallet', icon: plusSvg }}
 					/>
 					<div className={cards}>
-						{wallets.map((s) => (
+						{wallets.map((wallet) => (
 							<WalletCard
-								amount={s.amount}
-								name={s.name}
-								unit={s.unit}
-								key={s.id}
-								id={s.id}
-								onSelect={onSelectWallet(s)}
-								onEdit={onEditWallet(s)}
-								isSelected={wallet.id === s.id}
+								key={wallet.id}
+								{...wallet}
+								onSelect={onSelectWallet(wallet)}
+								onEdit={onEditWallet(wallet)}
+								isSelected={wallet.id === wallet.id}
 							/>
 						))}
 					</div>
