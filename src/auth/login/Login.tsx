@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
 import Button from '../../app/ui/Button';
 import InputForm from '../../app/ui/InputForm';
-import { setLocalStorageUser } from '../../app/utils/localObject';
-import { useUser } from '../../state/user';
+import { setCookies } from '../../app/utils/localObject';
 import { loginAction } from '../utils/login';
 
 const Login = () => {
+	const { updateUser } = useContext(UserContext);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
 	const navigate = useNavigate();
-
-	const { initUser } = useUser();
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		try {
 			const result = await loginAction({ username, password });
-			initUser(result);
-			setLocalStorageUser(result);
-			navigate('/app');
+			setCookies('username', result.username);
+			setCookies('name', result.name);
+			setCookies('token', result.token);
+			updateUser({ username, name: result.name });
+			navigate('/app/main');
 		} catch (error) {
 			console.log(error);
 		}

@@ -1,15 +1,36 @@
-import { User } from '../types';
+const walletNameAtUser = 'localUser';
 
-const storageNameAtUser = 'localUser';
+export function setCookies(name: string, value: string) {
+	const d = new Date();
+	d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
+	const expires = `expires=${d.toUTCString()}`;
 
-export const getLocalStorageUser = () => {
-	const userString = localStorage.getItem(storageNameAtUser);
-	return userString ? (JSON.parse(userString) as User) : null;
-};
-export const setLocalStorageUser = (user: User) => {
-	localStorage.setItem(storageNameAtUser, JSON.stringify(user));
-};
+	document.cookie = `${name}=${value};${expires}`;
+}
 
-export const removeLocalStorageUser = () => {
-	localStorage.removeItem(storageNameAtUser);
-};
+export function getCookie(cname = walletNameAtUser) {
+	let name = cname + '=';
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return '';
+}
+
+export function removeCookie(cname: string) {
+	document.cookie = `${cname}=; expires=${new Date().toUTCString()}`;
+}
+
+export function removeUserCookie() {
+	document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+	document.cookie = `name=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+	document.cookie = `username=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+}
+

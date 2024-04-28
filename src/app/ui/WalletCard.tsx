@@ -3,7 +3,7 @@ import { otherSvg } from '../svg/other';
 import { bem } from '../utils/classnames';
 import EditBtn from './EditBtn';
 
-type StorageCartProps = {
+type WalletCartProps = {
 	amount: number;
 	unit: string;
 	name: string;
@@ -22,7 +22,7 @@ const [cardBtn] = cardElement('edit-btn');
 const iconCircle = iconModifier('circle');
 const selectedCard = cardModif('selected');
 
-const StorageCard: React.FC<StorageCartProps> = ({
+const WalletCard: React.FC<WalletCartProps> = ({
 	amount,
 	name,
 	unit,
@@ -49,5 +49,5 @@ const StorageCard: React.FC<StorageCartProps> = ({
 	);
 };
 
-export default StorageCard;
+export default WalletCard;
 

@@ -1,8 +1,9 @@
-import { useStorage } from '../../state/storages';
+import { useSelector } from 'react-redux';
+import { walletSelector } from '../../state/hooks';
 import GeneralHistory from '../history/GeneralHistory';
 import { arrowSvg } from '../svg/arrow';
 import { balanceSvg } from '../svg/balance';
-import { Storage, Transaction } from '../types';
+import { Transaction, Wallet } from '../types';
 import StatisticGraph from './StatisticGraph';
 import TotalCards from './TotalCards';
 
@@ -22,32 +23,32 @@ export type StatisticsTransaction = {
 
 export type KeysStatistics = keyof StatisticsTransaction;
 
-const useStatisticData = (storage: Storage) => {
+const useStatisticData = (wallet: Wallet) => {
 	const initData: StatisticsTransaction = {
 		all: {
 			name: 'Amount',
-			amount: storage.amount,
-			transactions: storage.transactions,
+			amount: wallet.amount,
+			transactions: wallet.transactions,
 			icon: balanceSvg,
-			unit: storage.unit,
+			unit: wallet.unit,
 		},
 		income: {
 			name: 'Income',
 			amount: 0,
 			transactions: [],
 			icon: arrowSvg,
-			unit: storage.unit,
+			unit: wallet.unit,
 		},
 		expense: {
 			name: 'Expense',
 			amount: 0,
 			transactions: [],
 			icon: arrowSvg,
-			unit: storage.unit,
+			unit: wallet.unit,
 		},
 	};
 
-	const data = storage.transactions.reduce(
+	const data = wallet.transactions.reduce(
 		(prev, stor) => {
 			if (stor.transactionType === 'Expense') {
 				prev.expense.amount += stor.amount;
@@ -66,13 +67,9 @@ const useStatisticData = (storage: Storage) => {
 };
 
 const Statistics = () => {
-	const { storage } = useStorage();
+	const wallet = useSelector(walletSelector);
 
-	if (!storage) {
-		return <div>loading...</div>;
-	}
-
-	const data = useStatisticData(storage);
+	const data = useStatisticData(wallet);
 
 	return (
 		<>

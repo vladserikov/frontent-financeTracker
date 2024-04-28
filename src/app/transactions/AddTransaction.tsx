@@ -1,19 +1,19 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useStorage } from '../../state/storages';
+import { walletSelector } from '../../state/hooks';
 import { NewTransaction, Transaction } from '../types';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
 import { bem } from '../utils/classnames';
-import { postTransaction } from './utils/transactions';
 
 const [changeBlock, changeElement] = bem('change-transaction');
 const [selectedElement] = changeElement('selected');
 
 const AddTransaction = () => {
-	const { storage } = useStorage();
+	const wallet = useSelector(walletSelector);
 	const navigate = useNavigate();
 
 	const [formStatus, setFormStatus] = useState<NewTransaction>({
@@ -42,7 +42,7 @@ const AddTransaction = () => {
 		};
 
 	const onSubmit = async () => {
-		await postTransaction(storage.id, formStatus);
+		await postTransaction(wallet.id, formStatus);
 		navigate(-1);
 	};
 

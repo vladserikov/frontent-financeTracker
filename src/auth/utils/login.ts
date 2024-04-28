@@ -6,7 +6,6 @@ const baseUrl = '/api/login';
 export const loginAction = async (loginObj: LoginUser) => {
 	const request = await axios.post(baseUrl, loginObj);
 
-	if (request.statusText === 'Created') return request.data;
-	throw new Error(request.data.error);
+	return request.data;
 };
 

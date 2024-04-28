@@ -1,4 +1,4 @@
-import StickMenu from './ui/StickMenu';
+import Menu from './ui/Menu';
 
 import { Outlet } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const [blockHome] = bem('home');
 function MainContainer() {
 	return (
 		<div className={blockHome}>
-			<StickMenu />
+			<Menu />
 			<Outlet />
 		</div>
 	);

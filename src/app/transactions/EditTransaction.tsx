@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useStorage } from '../../state/storages';
+import { walletSelector } from '../../state/hooks';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
@@ -9,9 +10,7 @@ import InputForm from '../ui/InputForm';
 const EditTransaction = () => {
 	const { id } = useParams();
 
-	const {
-		storage: { transactions },
-	} = useStorage();
+	const { transactions } = useSelector(walletSelector);
 	const currentTransaction = transactions.find((t) => t.id === id);
 
 	const [amount, setAmount] = useState(

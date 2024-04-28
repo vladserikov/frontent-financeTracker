@@ -1,63 +1,86 @@
 import './main.scss';
 
-import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { createContext, useLayoutEffect, useState } from 'react';
 import ContentContainer from './app/ContentContainer';
 import MainContainer from './app/MainContainer';
-import AddStorage from './app/storages/AddStorage';
-import EditStorage from './app/storages/EditStorage';
-import { initToken } from './app/storages/utils/storages';
+import Profile from './app/profile/Profile';
 import AddTransaction from './app/transactions/AddTransaction';
 import EditTransaction from './app/transactions/EditTransaction';
+import NewTransaction from './app/transactions/NewTransaction';
+import { User } from './app/types';
 import ErrorElement from './app/ui/ErrorElement';
-import { getLocalStorageUser } from './app/utils/localObject';
+import { getCookie } from './app/utils/localObject';
+import AddWallet from './app/wallets/AddWallet';
+import EditWallet from './app/wallets/EditWallet';
 import AuthUser from './auth/AuthUser';
 import Login from './auth/login/Login';
 import Registration from './auth/registration/Registration';
-import { useUser } from './state/user';
+
+type Context = {
+	user: User | null;
+	updateUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
+
+const defaultContext = {
+	user: null,
+	updateUser: () => {},
+};
+
+export const UserContext = createContext<Context>(defaultContext);
 
 function App() {
-	const { initUser, user } = useUser();
+	const [currentUser, setCurrentUser] = useState<null | User>(null);
 
-	useEffect(() => {
-		if (!user) {
-			const userObj = getLocalStorageUser();
-			if (userObj) {
-				initUser(userObj);
-				initToken(userObj.token);
-			}
+	useLayoutEffect(() => {
+		if (!currentUser) {
+			const cUser = {
+				username: getCookie('username'),
+				name: getCookie('name'),
+			};
+
+			console.log({ cUser });
+			if (cUser.username) setCurrentUser(cUser);
 		}
-	}, [initUser, user]);
+	}, [currentUser]);
 
 	return (
-		<div className='app'>
-			<Routes>
-				<Route
-					path='/'
-					element={<Navigate replace to={user ? '/app/main' : '/auth'} />}
-					errorElement={<ErrorElement />}
-				/>
-				<Route path='/auth' element={<AuthUser />}>
-					<Route path='login' element={<Login />} />
-					<Route path='registration' element={<Registration />} />
-				</Route>
-				<Route
-					path='/app'
-					element={<MainContainer />}
-					errorElement={<ErrorElement />}
-				>
-					<Route path='main/:id' element={<EditStorage />} />
-					<Route path='main/*' index element={<ContentContainer />} />
-					<Route path='transactions/:id' element={<EditTransaction />} />
+		<UserContext.Provider
+			value={{ user: currentUser, updateUser: setCurrentUser }}
+		>
+			<div className='app'>
+				<Routes>
 					<Route
-						path='transactions/add-transaction'
-						element={<AddTransaction />}
+						path='/'
+						element={
+							<Navigate replace to={currentUser ? '/app/main' : '/auth'} />
+						}
+						errorElement={<ErrorElement />}
 					/>
-					<Route path='add-storage' element={<AddStorage />} />
-				</Route>
-			</Routes>
-		</div>
+					<Route path='/auth' element={<AuthUser />}>
+						<Route path='login' element={<Login />} />
+						<Route path='registration' element={<Registration />} />
+					</Route>
+					<Route
+						path='/app'
+						element={<MainContainer />}
+						errorElement={<ErrorElement />}
+					>
+						<Route path='main/:id' element={<EditWallet />} />
+						<Route path='main/*' index element={<ContentContainer />} />
+						<Route path='transactions/:id' element={<EditTransaction />} />
+						<Route
+							path='transactions/add-transaction'
+							element={<AddTransaction />}
+						/>
+						<Route path='transactions' element={<NewTransaction />} />
+						<Route path='add-wallet' element={<AddWallet />} />
+						<Route path='profile' element={<Profile />} />
+					</Route>
+				</Routes>
+			</div>
+		</UserContext.Provider>
 	);
 }
 

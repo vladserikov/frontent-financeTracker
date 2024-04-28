@@ -1,9 +1,11 @@
 .menu {
+    z-index: 9999;
     grid-area: menu;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
     background-color: var(--button-default-text-color);
 
@@ -15,8 +17,8 @@
         flex-direction: column;
         padding-left: 16px;
 
-        >a {
-
+        a {
+            height: 80px;
             background-color: var(--button-default-text-color);
 
             path,
@@ -24,9 +26,11 @@
                 fill: var(--app-background);
             }
         }
+    }
 
-
+    &__burger-menu {
         &>.active {
+
 
             background-color: var(--app-background);
             border-radius: 8px 0 0 8px;
@@ -40,17 +44,95 @@
         }
     }
 
+    &__burger-icon {
+        &--hide {
+            display: none;
+        }
+    }
+
+    &__exit-btn {
+
+    }
 
 }
 
 
 @media only screen and (max-width: 768px) {
     .menu {
-        position: sticky;
+        position: fixed;
+        width: 100%;
+        height: 80px;
         border-radius: 0 0 8px 8px;
 
         &__content {
-            flex-direction: row;
+            transition: all 0.3s;
+            position: fixed;
+
+            left: 0;
+            top: 80px;
+            width: 100%;
+            height: 100%;
+
+            background-color: rgba(40, 36, 36, 0.6);
+
+            display: block;
+            padding: 0;
+            transform: translateX(0);
+            z-index: 1;
+        }
+
+
+        &__burger-menu {
+            background-color: var(--app-background);
+            height: 50%;
+            padding: 8px;
+
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+
+            >a {
+                transition: all 0.3;
+                background-color: transparent;
+                color: var(--button-default-text-color);
+
+                align-self: start;
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .active {
+                text-decoration: underline solid var(--selected-wallet-dark);
+                text-underline-offset: 5px;
+                color: var(--selected-wallet-dark);
+            }
+        }
+
+        &__burger-icon {
+            &--hide {
+                display: block;
+                position: fixed;
+                left: 24px;
+            }
+        }
+
+        .open {
+            path {
+                stroke: var(--selected-wallet);
+            }
+        }
+
+        >.hidden {
+            transform: translateX(-100%);
+            background-color: rgba(40, 36, 36, 0);
+            z-index: -1;
+
+            // height: ;
+            >.menu__burger-menu {
+                // height: 0;
+            }
         }
     }
 }

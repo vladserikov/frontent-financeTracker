@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useStorages } from '../../state/storages';
+
+import { useCreateWalletMutation } from '../../state/walletsApi';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
 import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
 
-const AddStorage = () => {
-	const { addStorage } = useStorages();
+const AddWallet = () => {
+	const [createWallet, result] = useCreateWalletMutation();
 
 	const [name, setName] = useState('');
 	const [unit, setUnit] = useState('');
@@ -21,7 +22,7 @@ const AddStorage = () => {
 
 	// Добавить нотификацию
 	const onSubmit = () => {
-		addStorage({ amount: parseFloat(amount), name, unit });
+		createWallet({ amount: parseFloat(amount), name, unit });
 	};
 
 	return (
@@ -55,11 +56,11 @@ const AddStorage = () => {
 					placeholder='Комментарий'
 					type='text'
 				/>
-				<Button type='submit' text='Добавить' />
+				<Button type='submit' text='Добавить' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>
 	);
 };
 
-export default AddStorage;
+export default AddWallet;
 

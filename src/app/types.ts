@@ -1,6 +1,5 @@
 export type User = {
 	username: string;
-	token: string;
 	name: string;
 };
 
@@ -16,7 +15,7 @@ export type Transaction = {
 
 export type NewTransaction = Omit<Transaction, 'id'>;
 
-export type Storage = {
+export type Wallet = {
 	name: string;
 	amount: number;
 	transactions: Transaction[];

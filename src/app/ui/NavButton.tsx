@@ -8,14 +8,26 @@ export type ButtonMenu = {
 	className?: string;
 	text?: string;
 	icon?: JSX.Element;
+	withIcon?: boolean;
+	withText?: boolean;
+	onClick?: () => void;
 };
 
-const NavButton: React.FC<ButtonMenu> = ({ text, to, className, icon }) => {
+const NavButton: React.FC<ButtonMenu> = ({
+	text,
+	to,
+	className,
+	icon,
+	withText,
+	onClick,
+	withIcon = true,
+}) => {
 	const classname = clsx([defaultButtonBlock, className]);
 
 	return (
-		<NavLink to={to} className={classname}>
-			{icon} {text}
+		<NavLink to={to} className={classname} onClick={onClick && onClick}>
+			{withIcon ? icon : null}
+			{withText || text ? text : null}
 		</NavLink>
 	);
 };

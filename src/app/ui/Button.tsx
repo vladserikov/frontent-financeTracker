@@ -8,6 +8,7 @@ export type ButtonProps = {
 	type: HTMLButtonElement['type'];
 	className?: string;
 	icon?: JSX.Element;
+	disabled?: boolean;
 };
 
 export const [defaultButtonBlock] = bem('default-button');
@@ -18,10 +19,16 @@ const Button: React.FC<ButtonProps> = ({
 	onClick,
 	className,
 	icon,
+	disabled,
 }) => {
 	const classname = clsx([defaultButtonBlock, className]);
 	return (
-		<button onClick={onClick} type={type} className={classname}>
+		<button
+			onClick={onClick}
+			type={type}
+			className={classname}
+			disabled={disabled}
+		>
 			{icon} {text}
 		</button>
 	);
