@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import {
-	KeysStatistics,
-	StatisticsTransaction,
-} from '../statistics/Statistics';
+
 import { plusSvg } from '../svg/plus';
+import type { KeysTransactionSummary, TransactionSummary } from '../types';
 import Button from '../ui/Button';
 import LayerHeader from '../ui/LayerHeader';
+import TransactionCard from '../ui/statistic/TransactionCard';
 import { bem } from '../utils/classnames';
-import CardHistory from './CardHistory';
 
 const [historyLayer] = bem('history-layer');
 const [historyBlock, historyElement] = bem('history');
@@ -15,9 +13,9 @@ const [selectBlock, modifSelect] = historyElement('choice-btn');
 const [tapeBlock] = historyElement('tape');
 const selectedBtn = modifSelect('select');
 
-const GeneralHistory: React.FC<StatisticsTransaction> = (props) => {
+const TransactionsHistory: React.FC<TransactionSummary> = (props) => {
 	const [currentHistory, setCurrentHistory] =
-		useState<KeysStatistics>('income');
+		useState<KeysTransactionSummary>('income');
 	const data = props[currentHistory];
 
 	if (!data) {
@@ -63,7 +61,7 @@ const GeneralHistory: React.FC<StatisticsTransaction> = (props) => {
 				{headerButtons()}
 				<div className={tapeBlock}>
 					{transactions.map((t, i) => {
-						return <CardHistory key={`${t.id}-${i}`} {...t} />;
+						return <TransactionCard key={`${t.id}-${i}`} {...t} />;
 					})}
 				</div>
 			</div>
@@ -71,5 +69,5 @@ const GeneralHistory: React.FC<StatisticsTransaction> = (props) => {
 	);
 };
 
-export default GeneralHistory;
+export default TransactionsHistory;
 

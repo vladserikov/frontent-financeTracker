@@ -24,3 +24,19 @@ export type Wallet = {
 	userId: string;
 };
 
+export type SummaryEntity = {
+	name: 'Amount' | 'Income' | 'Expense';
+	amount: number;
+	transactions: Transaction[];
+	icon: JSX.Element;
+	unit: string;
+};
+
+export type TransactionSummary = {
+	income: SummaryEntity;
+	expense: SummaryEntity;
+	aggregate: SummaryEntity;
+};
+
+export type KeysTransactionSummary = keyof TransactionSummary;
+

@@ -37,7 +37,7 @@
 
 }
 
-.total-layer {
+.summary-layer {
     grid-area: data;
 
 }
@@ -46,7 +46,7 @@
     grid-area: graph;
 }
 
-.total {
+.summary {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -54,7 +54,7 @@
     align-items: stretch;
 }
 
-.value-card {
+.summary-card {
     width: 30%;
 
     display: flex;
@@ -110,7 +110,7 @@
 
 @media only screen and (max-width: 768px) {
 
-    .total-layer {
+    .summary-layer {
         max-height: 150px;
     }
 
