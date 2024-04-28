@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Wallet } from '../app/types';
+import type { Transaction, Wallet } from '../app/types';
 import { getCookie } from '../app/utils/localObject';
+
+type AddTransaction = Omit<Transaction, 'id'> & { walletId: string };
 
 export const walletApi = createApi({
 	reducerPath: 'walletApi',
@@ -55,18 +57,16 @@ export const walletApi = createApi({
 				},
 			}),
 		}),
-		addTransaction: build.mutation<Wallet, Omit<Wallet, 'id' | 'transactions'>>(
-			{
-				query: (body) => ({
-					url: 'transaction',
-					headers: {
-						Authorization: `Bearer ${getCookie('token')}`,
-					},
-					body,
-				}),
-				invalidatesTags: ['Wallets'],
-			}
-		),
+		addTransaction: build.mutation<Transaction, AddTransaction>({
+			query: (body) => ({
+				url: 'transaction',
+				headers: {
+					Authorization: `Bearer ${getCookie('token')}`,
+				},
+				body,
+			}),
+			invalidatesTags: ['Wallets'],
+		}),
 	}),
 });
 
@@ -75,5 +75,6 @@ export const {
 	useGetAllWalletsQuery,
 	useEditWalletMutation,
 	useGetTransactionQuery,
+	useAddTransactionMutation,
 } = walletApi;
 

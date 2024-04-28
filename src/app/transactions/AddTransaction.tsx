@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { walletSelector } from '../../state/hooks';
+import { useAddTransactionMutation } from '../../state/walletsApi';
 import { NewTransaction, Transaction } from '../types';
 import Button from '../ui/Button';
 import FormElement from '../ui/FormElement';
@@ -15,6 +16,7 @@ const [selectedElement] = changeElement('selected');
 const AddTransaction = () => {
 	const wallet = useSelector(walletSelector);
 	const navigate = useNavigate();
+	const [addTransaction, result] = useAddTransactionMutation();
 
 	const [formStatus, setFormStatus] = useState<NewTransaction>({
 		amount: 0,
@@ -42,7 +44,7 @@ const AddTransaction = () => {
 		};
 
 	const onSubmit = async () => {
-		await postTransaction(wallet.id, formStatus);
+		addTransaction({ ...formStatus, walletId: wallet.id });
 		navigate(-1);
 	};
 
@@ -98,7 +100,7 @@ const AddTransaction = () => {
 					onChange={onChangeForm('amount')}
 					value={formStatus.amount}
 				/>
-				<Button type='submit' text='Добавить' />
+				<Button type='submit' text='Добавить' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>
 	);
