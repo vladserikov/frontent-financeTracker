@@ -1,17 +1,17 @@
 import React from 'react';
-import { bem } from '../utils/classnames';
+
+import InputWrapper, { bemInputElement } from './InputWrapper';
 
 type InputForm = {
 	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
 	placeholder?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
-	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
+	value?: React.InputHTMLAttributes<HTMLInputElement>['value'];
 	id: string;
 	required?: boolean;
 };
 
-const [block, elementGenerator] = bem('input-block');
-const [element] = elementGenerator('element');
+const [element] = bemInputElement('element');
 
 const InputForm: React.FC<InputForm> = ({
 	placeholder,
@@ -22,8 +22,9 @@ const InputForm: React.FC<InputForm> = ({
 	required,
 }) => {
 	return (
-		<div className={block}>
+		<InputWrapper>
 			<input
+				name={id}
 				id={id}
 				type={type}
 				placeholder={placeholder}
@@ -32,7 +33,7 @@ const InputForm: React.FC<InputForm> = ({
 				value={value}
 				required={required}
 			/>
-		</div>
+		</InputWrapper>
 	);
 };
 

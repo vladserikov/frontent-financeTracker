@@ -18,6 +18,7 @@ const FormElement: React.FC<FormElement> = ({
 }) => {
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		onSubmitAction(e);
 	};
 	return (

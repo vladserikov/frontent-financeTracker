@@ -5,3 +5,8 @@ export const walletSelector = createSelector(
 	[(state: RootStore) => state.wallet],
 	(wallet) => wallet
 );
+export const walletIdSelector = createSelector(
+	[(state: RootStore) => state.wallet],
+	(wallet) => wallet.id
+);
+

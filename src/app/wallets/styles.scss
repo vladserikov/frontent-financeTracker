@@ -99,15 +99,6 @@
 }
 
 
-.change-transaction {
-    display: flex;
-    justify-content: space-between;
-
-    &__selected {
-        background-color: var(--background-element);
-    }
-}
-
 @media only screen and (max-width: 768px) {
 
     .summary-layer {

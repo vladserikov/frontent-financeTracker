@@ -52,12 +52,6 @@ const TransactionsHistory: React.FC<TransactionSummary> = (props) => {
 					name='История'
 					button={{ to: '/app/transactions/add-transaction', icon: plusSvg }}
 				/>
-				{/* <div className={headerBlock}>
-					<div>История</div>
-					<div>
-						<NavButton to='/add' icon={plusSvg} />
-					</div>
-				</div> */}
 				{headerButtons()}
 				<div className={tapeBlock}>
 					{transactions.map((t, i) => {

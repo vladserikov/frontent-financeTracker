@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Transaction, Wallet } from '../app/types';
+import type { AddTransaction, Transaction, Wallet } from '../app/types';
 import { getCookie } from '../app/utils/localObject';
-
-type AddTransaction = Omit<Transaction, 'id'> & { walletId: string };
 
 export const walletApi = createApi({
 	reducerPath: 'walletApi',

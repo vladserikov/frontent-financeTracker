@@ -8,7 +8,7 @@ import MainContainer from './app/MainContainer';
 import Profile from './app/profile/Profile';
 import AddTransaction from './app/transactions/AddTransaction';
 import EditTransaction from './app/transactions/EditTransaction';
-import NewTransaction from './app/transactions/NewTransaction';
+import WalletSummary from './app/transactions/WalletSummary';
 import { User } from './app/types';
 import ErrorElement from './app/ui/ErrorElement';
 import { getCookie } from './app/utils/localObject';
@@ -76,7 +76,7 @@ function App() {
 							path='transactions/add-transaction'
 							element={<AddTransaction />}
 						/>
-						<Route path='transactions' element={<NewTransaction />} />
+						<Route path='transactions' element={<WalletSummary />} />
 						<Route path='profile' element={<Profile />} />
 					</Route>
 				</Routes>
