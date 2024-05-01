@@ -19,12 +19,17 @@ const walletsSelector = createSelector(
 	(wallet) => wallet
 );
 
+const walletIdSelector = createSelector(
+	[(state: RootStore) => state.wallet],
+	(wallet) => wallet.id
+);
+
 const Wallets = () => {
 	const hookData = useGetAllWalletsQuery('');
 
 	const { data: wallets, isLoading } = hookData;
 
-	const wallet = useSelector(walletsSelector);
+	const walletId = useSelector(walletIdSelector);
 	const dispatch = useDispatch();
 
 	const selectWallet = (newWallet: Wallet) => {
@@ -32,7 +37,7 @@ const Wallets = () => {
 	};
 
 	useEffect(() => {
-		if (!wallet.id && wallets?.length) {
+		if (!walletId && wallets?.length) {
 			selectWallet(wallets[0]);
 		}
 	}, [wallets]);
@@ -44,12 +49,12 @@ const Wallets = () => {
 		(newWallet: Wallet) =>
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			e.stopPropagation();
-			if (wallet.id === newWallet.id) return;
+			if (walletId === newWallet.id) return;
 			selectWallet(newWallet);
 		};
 
 	const onEditWallet = (newWallet: Wallet) => () => {
-		if (wallet.id !== newWallet.id) {
+		if (walletId !== newWallet.id) {
 			selectWallet(newWallet);
 		}
 	};
@@ -69,7 +74,7 @@ const Wallets = () => {
 								{...wallet}
 								onSelect={onSelectWallet(wallet)}
 								onEdit={onEditWallet(wallet)}
-								isSelected={wallet.id === wallet.id}
+								isSelected={walletId === wallet.id}
 							/>
 						))}
 					</div>

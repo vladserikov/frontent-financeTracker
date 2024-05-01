@@ -10,3 +10,8 @@ export const walletIdSelector = createSelector(
 	(wallet) => wallet.id
 );
 
+export const walletAddTransactionData = createSelector(
+	[(state: RootStore) => state.wallet],
+	(wallet) => [wallet.id, wallet.unit, wallet.name]
+);
+

@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { walletIdSelector } from '../../state/hooks';
+import { z } from 'zod';
+import { walletAddTransactionData } from '../../state/hooks';
 import { useAddTransactionMutation } from '../../state/walletsApi';
 import type { AddTransaction } from '../types';
 import Button from '../ui/Button';
@@ -9,43 +11,78 @@ import FormWrapper from '../ui/FormWrapper';
 import InputForm from '../ui/InputForm';
 import SelectForm from '../ui/SelectForm';
 
+const formSchema = z.object({
+	amount: z.string().transform((v) => Number(v) || 0),
+	category: z.string().min(1, {
+		message: 'Please typing category',
+	}),
+	date: z.coerce.date({
+		invalid_type_error: 'Data',
+	}),
+	transactionType: z.enum(['Expense', 'Income']),
+});
+
+type State = {
+	errors?: { category?: string[]; amount?: string[]; date?: string[] };
+	message?: string | null;
+};
+
 const AddTransaction = () => {
-	const walletId = useSelector(walletIdSelector);
+	const [walletId, walletUnit, walletName] = useSelector(
+		walletAddTransactionData
+	);
 	const navigate = useNavigate();
 	const [addTransaction, result] = useAddTransactionMutation();
+	const [errorObj, setErrorObj] = useState<State>({});
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		console.log({ e });
 		const formData = new FormData(e.target as HTMLFormElement);
-		for (let [key, value] of formData.entries()) {
-			console.log(`${key}: ${value} -> ${typeof value}`);
-		}
-		// use zod
-		const newTransaction: AddTransaction = {
-			walletId,
-			amount: parseFloat(formData.get('amount')?.toString() ?? '0'),
-			category: formData.get('category')?.toString() ?? 'Default',
-			comment: formData.get('category')?.toString() ?? '',
-			date: formData.get('category')?.toString() ?? new Date(),
-			transactionType: formData.get('transactionType')?.toString() ?? 'Expense',
-			unit: formData.get('category')?.toString() ?? 'USD',
-		};
-		// addTransaction({
-		// 	walletId,
-		// 	amount: parseFloat(formData.get('amount')),
-		// })
+		const formObj: Record<string, any> = {};
 
-		// addTransaction({ ...formStatus, walletId: wallet.id });
-		// navigate(-1);
+		for (let [key, value] of formData.entries()) {
+			formObj[key] = value;
+		}
+
+		const result = formSchema.safeParse({
+			...formObj,
+		});
+		console.log({ result });
+		if (!result.success) {
+			setErrorObj({
+				errors: result.error.flatten().fieldErrors,
+				message: 'Missing Fields. Failed to Create Invoice.',
+			});
+			return;
+		}
+
+		addTransaction({ ...result.data, walletId, unit: walletUnit, comment: '' });
+		navigate(-1);
 	};
 
 	return (
 		<FormWrapper backAction>
-			<FormElement name={'Add'} onSubmitAction={onSubmit}>
+			<FormElement name={`Add ${walletName}`} onSubmitAction={onSubmit}>
 				<InputForm id='category' placeholder='category' type='text' />
+				{errorObj.errors?.category &&
+					errorObj.errors.category.map((er) => <p>{er}</p>)}
 				<InputForm id='date' placeholder='Date' type='date' />
-				<InputForm id='amount' placeholder='amount' type='number' />
-				<SelectForm id='type' options={['Expense', 'Income']} />
+				{errorObj.errors?.date && errorObj.errors.date.map((er) => <p>{er}</p>)}
+				<InputForm
+					id='amount'
+					placeholder='amount'
+					type='number'
+					defaultValue={0}
+				/>
+				{errorObj.errors?.amount &&
+					errorObj.errors.amount.map((er) => <p>{er}</p>)}
+				<InputForm
+					id='unit'
+					placeholder='unit'
+					type='string'
+					disabled
+					value={walletUnit}
+				/>
+				<SelectForm id='transactionType' options={['Expense', 'Income']} />
 				<Button type='submit' text='Добавить' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>

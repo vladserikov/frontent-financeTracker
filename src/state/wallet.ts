@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit/react';
-import { Wallet } from '../app/types';
+import { Transaction, Wallet } from '../app/types';
 
 const initialState: Wallet = {
 	amount: 0,
@@ -29,6 +29,9 @@ export const walletSlicer = createSlice({
 		changeWallet: (_state, action: PayloadAction<Wallet>) => {
 			return action.payload;
 		},
+		addWalletTransaction: (state, action: PayloadAction<Transaction>) => {
+			state.transactions.push(action.payload);
+		},
 	},
 });
 
@@ -38,6 +41,7 @@ export const {
 	changeUnit,
 	initWallet,
 	changeWallet,
+	addWalletTransaction,
 } = walletSlicer.actions;
 
 export const walletReducer = walletSlicer.reducer;

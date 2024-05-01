@@ -9,6 +9,8 @@ type InputForm = {
 	value?: React.InputHTMLAttributes<HTMLInputElement>['value'];
 	id: string;
 	required?: boolean;
+	disabled?: boolean;
+	defaultValue?: any;
 };
 
 const [element] = bemInputElement('element');
@@ -20,6 +22,8 @@ const InputForm: React.FC<InputForm> = ({
 	value,
 	id,
 	required,
+	disabled,
+	defaultValue,
 }) => {
 	return (
 		<InputWrapper>
@@ -32,6 +36,8 @@ const InputForm: React.FC<InputForm> = ({
 				onChange={onChange}
 				value={value}
 				required={required}
+				disabled={disabled}
+				defaultValue={defaultValue}
 			/>
 		</InputWrapper>
 	);
