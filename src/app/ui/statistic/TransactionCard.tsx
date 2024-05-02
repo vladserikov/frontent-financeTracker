@@ -1,8 +1,10 @@
 import React from 'react';
+import { basketSvg } from '../../svg/basket';
 import { otherSvg } from '../../svg/other';
 import type { Transaction } from '../../types';
 import { bem } from '../../utils/classnames';
 import EditBtn from '../EditBtn';
+import IconContainer from '../IconContainer';
 
 const [cardBlock, cardElement] = bem('history-card');
 const [iconElement] = cardElement('icon');
@@ -14,7 +16,7 @@ const TransactionCard: React.FC<Transaction> = (props) => {
 	const { amount, category, id } = props;
 	return (
 		<div className={cardBlock}>
-			<div className={iconElement}>ic</div>
+			<IconContainer icon={basketSvg} className={iconElement} />
 			<div className={categoryElement}>{category}</div>
 			<div className={amountElement}>{amount}</div>
 			<div className={btnElement}>

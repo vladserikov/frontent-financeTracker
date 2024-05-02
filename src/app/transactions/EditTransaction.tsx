@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { walletSelector } from '../../state/hooks';
 import { useUpdateTransactionMutation } from '../../state/walletsApi';
 import Button from '../ui/Button';
@@ -11,7 +11,7 @@ const EditTransaction = () => {
 	const { id } = useParams();
 	const [updateTransaction, result] = useUpdateTransactionMutation();
 	const { transactions } = useSelector(walletSelector);
-
+	const navigate = useNavigate();
 	const currentTransaction = transactions.find((t) => t.id === id);
 
 	if (!currentTransaction) {
@@ -27,6 +27,7 @@ const EditTransaction = () => {
 		}
 
 		updateTransaction({ ...currentTransaction, ...formObj });
+		navigate(-1);
 	};
 
 	return (
@@ -34,7 +35,7 @@ const EditTransaction = () => {
 			<FormElement name={currentTransaction.category} onSubmitAction={onSubmit}>
 				<InputForm id='amount' type='text' defaultValue={amount} />
 				<InputForm id='category' type='text' defaultValue={category} />
-				<Button text='Обновить' type='submit' />
+				<Button text='Обновить' type='submit' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>
 	);

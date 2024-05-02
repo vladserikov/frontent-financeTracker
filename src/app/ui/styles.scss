@@ -48,6 +48,7 @@
     border-radius: 8px;
     padding: 10px 30px;
 
+    font-size: 16px;
 
     &--icon {
         width: 36px;
@@ -76,7 +77,8 @@
 }
 
 
-@import './stick.scss';
+@import './menu.scss';
 @import './card.scss';
 @import './formElement.scss';
 @import './editBtn.scss';
+@import './icon.scss';

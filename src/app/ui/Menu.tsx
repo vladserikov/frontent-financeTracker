@@ -12,6 +12,7 @@ import Button from './Button';
 import NavButton from './NavButton';
 
 const [blockMenu, elementGenerator] = bem('menu');
+const [linkBlock] = elementGenerator('link');
 const [elementBurgerIcon, burgerModif] = elementGenerator('burger-icon');
 const burgerHide = burgerModif('hide');
 const [elementBurgerMenu] = elementGenerator('burger-menu');
@@ -81,8 +82,11 @@ const Menu: React.FC = () => {
 								to={to}
 								text={text}
 								icon={icon}
-								withText={!isHide}
+								// withText={!isHide}
+								// TODO: fix buttons
+								withText
 								onClick={onCloseMenu}
+								className={linkBlock}
 							/>
 						);
 					})}

@@ -49,9 +49,13 @@
     gap: 4px;
     align-items: center;
     row-gap: 8px;
+    min-height: 40px;
 
     &__amount,
     &__btn {
         justify-self: end;
+    }
+    &__icon {
+        background-color: var(--background-element);
     }
 }
