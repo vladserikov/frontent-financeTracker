@@ -30,11 +30,11 @@
 
     &__burger-menu {
         &>.active {
-
-
             background-color: var(--app-background);
             border-radius: 8px 0 0 8px;
             color: initial;
+            position: relative;
+
 
             path,
             circle {
@@ -49,15 +49,15 @@
             display: none;
         }
     }
+
     &__link {
         max-height: 85px;
         display: flex;
         gap: 5px;
 
     }
-    &__exit-btn {
 
-    }
+    &__exit-btn {}
 
 }
 

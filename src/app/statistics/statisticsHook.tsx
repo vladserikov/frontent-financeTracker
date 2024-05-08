@@ -28,13 +28,14 @@ export const useStatisticData = (wallet: Wallet) => {
 	};
 
 	const data = wallet.transactions.reduce(
-		(prev, stor) => {
-			if (stor.transactionType === 'Expense') {
-				prev.expense.amount += stor.amount;
-				prev.expense.transactions.push(stor);
+		(prev, transaction) => {
+			console.log({ transaction });
+			if (transaction.transactionType === 'Expense') {
+				prev.expense.amount += transaction.amount;
+				prev.expense.transactions.push(transaction);
 			} else {
-				prev.income.amount += stor.amount;
-				prev.income.transactions.push(stor);
+				prev.income.amount += transaction.amount;
+				prev.income.transactions.push(transaction);
 			}
 
 			return prev;

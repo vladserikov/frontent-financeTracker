@@ -1,21 +1,11 @@
 import React from 'react';
 
-import InputWrapper, { bemInputElement } from './InputWrapper';
+import InputWrapper from './InputWrapper';
+import { defaultInputElement } from './classnames';
 
-type InputForm = {
-	type: React.InputHTMLAttributes<HTMLInputElement>['type'];
-	placeholder?: string;
-	onChange?: React.ChangeEventHandler<HTMLInputElement>;
-	value?: React.InputHTMLAttributes<HTMLInputElement>['value'];
-	id: string;
-	required?: boolean;
-	disabled?: boolean;
-	defaultValue?: any;
-};
+const [element] = defaultInputElement('element');
 
-const [element] = bemInputElement('element');
-
-const InputForm: React.FC<InputForm> = ({
+const InputForm: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
 	placeholder,
 	type,
 	onChange,

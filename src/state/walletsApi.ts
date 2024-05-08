@@ -7,10 +7,10 @@ export const walletApi = createApi({
 	reducerPath: 'walletApi',
 	tagTypes: ['Wallets', 'Transaction'],
 	baseQuery: fetchBaseQuery({
-		baseUrl: 'http://localhost:3001/api',
+		baseUrl: '/api',
 	}),
 	endpoints: (build) => ({
-		getAllWallets: build.query<Wallet[], any>({
+		getAllWallets: build.query<Wallet[], void>({
 			query: () => ({
 				url: 'wallet',
 				mode: 'cors',
@@ -70,7 +70,9 @@ export const walletApi = createApi({
 				try {
 					const { data } = await api.queryFulfilled;
 					api.dispatch(addWalletTransaction(data));
-				} catch (error) {}
+				} catch (error) {
+					console.log(error);
+				}
 			},
 		}),
 		updateTransaction: build.mutation<Transaction, Transaction>({

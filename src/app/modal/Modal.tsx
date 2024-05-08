@@ -25,3 +25,4 @@ const Modal: React.FC<Modal> = () => {
 	);
 };
 
+export default Modal;

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { bem } from '../utils/classnames';
+import { defaultButtonBlock, defaultButtonModification } from './classnames';
 
 export type ButtonProps = {
 	text?: string;
@@ -11,8 +11,6 @@ export type ButtonProps = {
 	disabled?: boolean;
 };
 
-export const [defaultButtonBlock, , defaultButtonModification] =
-	bem('default-button');
 const disabledBlock = defaultButtonModification('disabled');
 
 const Button: React.FC<ButtonProps> = ({

@@ -22,7 +22,7 @@ const EditTransaction = () => {
 		const formData = new FormData(e.target as HTMLFormElement);
 		const formObj: Record<string, any> = {};
 
-		for (let [key, value] of formData.entries()) {
+		for (const [key, value] of formData.entries()) {
 			formObj[key] = value;
 		}
 

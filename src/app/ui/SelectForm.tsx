@@ -1,4 +1,5 @@
-import InputWrapper, { bemInputElement } from './InputWrapper';
+import { defaultInputElement } from './classnames';
+import InputWrapper from './InputWrapper';
 
 type SelectFormProps = {
 	options: string[];
@@ -7,7 +8,7 @@ type SelectFormProps = {
 	className?: string;
 	value?: string;
 };
-const [element] = bemInputElement('element');
+const [element] = defaultInputElement('element');
 
 const SelectForm: React.FC<SelectFormProps> = ({
 	defaultValue,
