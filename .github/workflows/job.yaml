@@ -18,4 +18,5 @@ jobs:
         with:
           node-version: 20
           cash: 'yarn'
+      - run: yarn install
       - run: yarn lint
