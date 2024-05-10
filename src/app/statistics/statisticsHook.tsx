@@ -1,5 +1,6 @@
 import { arrowSvg } from '../svg/arrow';
 import { balanceSvg } from '../svg/balance';
+
 import type { TransactionSummary, Wallet } from '../types';
 
 export const useStatisticData = (wallet: Wallet) => {
@@ -29,7 +30,6 @@ export const useStatisticData = (wallet: Wallet) => {
 
 	const data = wallet.transactions.reduce(
 		(prev, transaction) => {
-			console.log({ transaction });
 			if (transaction.transactionType === 'Expense') {
 				prev.expense.amount += transaction.amount;
 				prev.expense.transactions.push(transaction);

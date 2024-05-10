@@ -89,10 +89,11 @@
         background-color: var(--background-color);
 
         &>svg {
-            width: 15px;
+            width: 20px;
 
             >path {
                 fill: var(--selected-wallet);
+                stroke: var(--selected-wallet);
             }
         }
     }
