@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
-import { plusSvg } from '../svg/plus';
-import type { KeysTransactionSummary, TransactionSummary } from '../types';
-import Button from '../ui/Button';
-import LayerHeader from '../ui/LayerHeader';
-import TransactionCard from '../ui/statistic/TransactionCard';
-import { bem } from '../utils/classnames';
+import { plusSvg } from '../../svg/plus';
+import type { TransactionSummary } from '../../types';
+import Button from '../../ui/Button';
+import LayerHeader from '../../ui/LayerHeader';
+import TransactionCard from '../../ui/statistic/TransactionCard';
+import { bem } from '../../utils/classnames';
+import { StatisticContext, StatisticContextProps } from '../statisticContext';
 
 const [historyLayer] = bem('history-layer');
 const [historyBlock, historyElement] = bem('history');
@@ -14,9 +15,10 @@ const [tapeBlock] = historyElement('tape');
 const selectedBtn = modifSelect('select');
 
 const TransactionsHistory: React.FC<TransactionSummary> = (props) => {
-	const [currentHistory, setCurrentHistory] =
-		useState<KeysTransactionSummary>('income');
-	const data = props[currentHistory];
+	const { currentType, changeType } =
+		useContext<StatisticContextProps>(StatisticContext);
+
+	const data = props[currentType];
 
 	if (!data) {
 		return <div>loading...</div>;
@@ -27,17 +29,19 @@ const TransactionsHistory: React.FC<TransactionSummary> = (props) => {
 			<Button
 				text='Доходы'
 				type='button'
-				className={currentHistory === 'income' ? selectedBtn : ''}
+				className={currentType === 'income' ? selectedBtn : ''}
 				onClick={() => {
-					setCurrentHistory('income');
+					if (currentType === 'income') return;
+					changeType('income');
 				}}
 			/>
 			<Button
 				text='Расходы'
 				type='button'
-				className={currentHistory === 'expense' ? selectedBtn : ''}
+				className={currentType === 'expense' ? selectedBtn : ''}
 				onClick={() => {
-					setCurrentHistory('expense');
+					if (currentType === 'expense') return;
+					changeType('expense');
 				}}
 			/>
 		</div>

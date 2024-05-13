@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { AddTransaction, Transaction, Wallet } from '../app/types';
 import { getCookie } from '../app/utils/localObject';
-import { addWalletTransaction } from './wallet';
+import { addWalletTransaction, updateTransaction } from './wallet';
 
 export const walletApi = createApi({
 	reducerPath: 'walletApi',
@@ -84,6 +84,14 @@ export const walletApi = createApi({
 					Authorization: `Bearer ${getCookie('token')}`,
 				},
 			}),
+			async onQueryStarted(_arg, api) {
+				try {
+					const { data } = await api.queryFulfilled;
+					api.dispatch(updateTransaction(data));
+				} catch (error) {
+					console.log(error);
+				}
+			},
 		}),
 	}),
 });

@@ -21,6 +21,7 @@ const FormElement: React.FC<FormElement> = ({
 
 		onSubmitAction(e);
 	};
+
 	return (
 		<form className={formBlock} onSubmit={onSubmit}>
 			<div className={headerBlock}>{name}</div>

@@ -32,6 +32,11 @@ export const walletSlicer = createSlice({
 		addWalletTransaction: (state, action: PayloadAction<Transaction>) => {
 			state.transactions.push(action.payload);
 		},
+		updateTransaction: (state, action: PayloadAction<Transaction>) => {
+			state.transactions = state.transactions.map((tr) =>
+				tr.id === action.payload.id ? action.payload : tr
+			);
+		},
 	},
 });
 
@@ -42,6 +47,7 @@ export const {
 	initWallet,
 	changeWallet,
 	addWalletTransaction,
+	updateTransaction,
 } = walletSlicer.actions;
 
 export const walletReducer = walletSlicer.reducer;

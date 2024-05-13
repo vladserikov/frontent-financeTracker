@@ -1,20 +1,27 @@
 import { useSelector } from 'react-redux';
 
+import { useState } from 'react';
 import { walletSelector } from '../../state/hooks';
-import TransactionsHistory from '../history/TransactionsHistory';
+import type { TransactionSummary } from '../types';
 import SummaryCards from '../ui/statistic/SummaryCards';
-import StatisticGraph from './StatisticGraph';
+import StatisticGraph from './graph/StatisticGraph';
+import TransactionsHistory from './history/TransactionsHistory';
+import { StatisticContext } from './statisticContext';
 import { useStatisticData } from './statisticsHook';
 
 const Statistics = () => {
 	const wallet = useSelector(walletSelector);
 	const data = useStatisticData(wallet);
+	const [currentType, changeType] =
+		useState<keyof TransactionSummary>('income');
 
 	return (
 		<>
-			<SummaryCards {...data} />
-			<StatisticGraph />
-			<TransactionsHistory {...data} />
+			<StatisticContext.Provider value={{ currentType, changeType }}>
+				<SummaryCards {...data} />
+				<StatisticGraph {...data} />
+				<TransactionsHistory {...data} />
+			</StatisticContext.Provider>
 		</>
 	);
 };
