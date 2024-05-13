@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useCreateWalletMutation } from '../../state/walletsApi';
 import Button from '../ui/buttons/Button';
@@ -8,6 +9,7 @@ import InputForm from '../ui/form/InputForm';
 
 const AddWallet = () => {
 	const [createWallet, result] = useCreateWalletMutation();
+	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
 	const [unit, setUnit] = useState('');
@@ -22,6 +24,7 @@ const AddWallet = () => {
 
 	const onSubmit = () => {
 		createWallet({ amount: parseFloat(amount), name, unit });
+		navigate(-1);
 	};
 
 	return (

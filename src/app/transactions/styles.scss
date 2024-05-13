@@ -1,8 +1,8 @@
 .transaction-layer {
     grid-template-areas:
-    'balance balance'
-    'expense income'
-    'expense income';
+        'balance balance'
+        'expense income'
+        'expense income';
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
@@ -13,7 +13,18 @@
         grid-area: expense;
     }
 
-    &__income{
+    &__income {
         grid-area: income;
     }
+}
+
+@media only screen and (max-width: 768px) {
+    .transaction-layer {
+        grid-template-areas: 'balance'
+            'expense'
+            'income';
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+    }
+
 }

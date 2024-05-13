@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { bem } from '../utils/classnames';
 import { ModalStateContext } from './ModalContext';
 
@@ -26,3 +27,4 @@ const Modal: React.FC<Modal> = () => {
 };
 
 export default Modal;
+

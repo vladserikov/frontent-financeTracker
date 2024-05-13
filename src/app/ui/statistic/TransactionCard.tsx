@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { basketSvg } from '../../svg/basket';
 import { otherSvg } from '../../svg/other';
-import type { Transaction } from '../../types';
 import { bem } from '../../utils/classnames';
 import EditBtn from '../buttons/EditBtn';
 import IconContainer from '../icon/IconContainer';
 
+import type { Transaction } from '../../types';
 const [cardBlock, cardElement] = bem('history-card');
 const [iconElement] = cardElement('icon');
 const [categoryElement] = cardElement('category');

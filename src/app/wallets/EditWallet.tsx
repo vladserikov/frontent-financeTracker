@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { useNavigate } from 'react-router-dom';
 import { walletSelector } from '../../state/hooks';
 import { changeWallet } from '../../state/wallet';
 import { useEditWalletMutation } from '../../state/walletsApi';
@@ -13,49 +14,26 @@ const EditWallet = () => {
 	const { amount, name, unit } = wallet;
 	const [editWallet, result] = useEditWalletMutation();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-	const [walletName, setWalletName] = useState(name);
-	const [walletAmount, setWalletAmount] = useState(`${amount}`);
-	const [walletUnit, setWalletUnit] = useState(unit);
-
-	const onChangeState =
-		(setState: React.Dispatch<React.SetStateAction<string>>) =>
-		({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
-			setState(value);
-		};
-
-	const onSubmit = () => {
+	const onSubmit = (formObj: Record<string, any>) => {
 		const newWallet = {
 			...wallet,
-			amount: parseFloat(walletAmount),
-			name: walletName,
-			unit: walletUnit,
+			...formObj,
+			amount: parseFloat(formObj.amount) || 0,
 		};
+
 		editWallet(newWallet);
 		dispatch(changeWallet(newWallet));
+		navigate(-1);
 	};
 
 	return (
 		<FormWrapper backAction>
 			<FormElement name={''} onSubmitAction={onSubmit}>
-				<InputForm
-					id='name'
-					onChange={onChangeState(setWalletName)}
-					value={walletName}
-					type='text'
-				/>
-				<InputForm
-					id='name'
-					onChange={onChangeState(setWalletAmount)}
-					value={walletAmount}
-					type='text'
-				/>
-				<InputForm
-					id='name'
-					onChange={onChangeState(setWalletUnit)}
-					value={walletUnit}
-					type='text'
-				/>
+				<InputForm id='name' defaultValue={name} type='text' />
+				<InputForm id='amount' defaultValue={amount} type='text' />
+				<InputForm id='unit' defaultValue={unit} type='text' />
 				<Button type='submit' text='Обновить' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>

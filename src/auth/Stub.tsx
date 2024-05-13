@@ -1,4 +1,5 @@
 import React from 'react';
+
 import NavButton from '../app/ui/buttons/NavButton';
 import { bem } from '../app/utils/classnames';
 import { svgAuth } from './svg/backgroundSvg';

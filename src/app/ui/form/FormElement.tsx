@@ -1,8 +1,12 @@
 import React, { ReactNode } from 'react';
+
 import { bem } from '../../utils/classnames';
 
 type FormElement = {
-	onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
+	onSubmitAction: (
+		formObj: Record<string, any>,
+		e?: React.FormEvent<HTMLFormElement>
+	) => void;
 	name: string | JSX.Element;
 	children?: ReactNode;
 };
@@ -20,8 +24,7 @@ const FormElement: React.FC<FormElement> = ({
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		const formObj = Object.fromEntries(formData);
-		console.log(formObj);
-		onSubmitAction(e);
+		onSubmitAction(formObj, e);
 	};
 
 	return (

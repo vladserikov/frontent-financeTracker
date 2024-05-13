@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { walletSelector } from '../../state/hooks';
 import { useUpdateTransactionMutation } from '../../state/walletsApi';
 import Button from '../ui/buttons/Button';
@@ -18,14 +19,7 @@ const EditTransaction = () => {
 		return <>error</>;
 	}
 	const { amount, category } = currentTransaction;
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		const formData = new FormData(e.target as HTMLFormElement);
-		const formObj: Record<string, any> = {};
-
-		for (const [key, value] of formData.entries()) {
-			formObj[key] = value;
-		}
-
+	const onSubmit = (formObj: Record<string, any>) => {
 		updateTransaction({ ...currentTransaction, ...formObj });
 		navigate(-1);
 	};

@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { walletIdSelector } from '../../state/hooks';
 import { initWallet } from '../../state/wallet';
 import { useGetAllWalletsQuery } from '../../state/walletsApi';

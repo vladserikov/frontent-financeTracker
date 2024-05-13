@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+
 import { bem } from '../../utils/classnames';
 
 const [contentBlock] = bem('content-layer');

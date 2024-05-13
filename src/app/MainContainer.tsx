@@ -1,7 +1,6 @@
-import Menu from './ui/menu/Menu';
-
 import { Outlet } from 'react-router-dom';
 
+import Menu from './ui/menu/Menu';
 import { bem } from './utils/classnames';
 
 const [blockHome] = bem('home');
