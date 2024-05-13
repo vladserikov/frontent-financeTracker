@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { bem } from '../utils/classnames';
+import { bem } from '../../utils/classnames';
 
 const [block] = bem('default-icon');
 

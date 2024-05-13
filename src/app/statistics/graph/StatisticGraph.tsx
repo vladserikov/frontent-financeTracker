@@ -3,7 +3,7 @@ import { useContext, useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 import { SummaryEntity, TransactionSummary } from '../../types';
-import LayerHeader from '../../ui/LayerHeader';
+import LayerHeader from '../../ui/layers/LayerHeader';
 import { bem } from '../../utils/classnames';
 import { StatisticContext } from '../statisticContext';
 

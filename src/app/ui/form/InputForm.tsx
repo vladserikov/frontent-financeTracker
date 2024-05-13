@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { defaultInputElement } from '../classnames';
 import InputWrapper from './InputWrapper';
-import { defaultInputElement } from './classnames';
 
 const [element] = defaultInputElement('element');
 

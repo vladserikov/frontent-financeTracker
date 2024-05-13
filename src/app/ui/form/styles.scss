@@ -43,6 +43,37 @@
     }
 }
 
+.input-block {
+    &__element {
+        display: block;
+        border: var(--border-default);
+        background-color: var(--background-element);
+
+        padding: var(--border-radius-default);
+        border-radius: var(--border-radius-default);
+        transition-duration: 0.3s;
+        transition-property: all;
+        transition-delay: 0s;
+
+        min-height: 2.5rem;
+        width: 100%;
+
+        &::placeholder {
+            color: var(--selected-wallet);
+        }
+
+        &:focus,
+        &:focus-visible {
+            border: var(--border-selected);
+        }
+
+        // &:hover {
+        //     background-color: var(--background-element-dark);
+        // }
+    }
+}
+
+
 @media only screen and (max-width: 768px) {
 
     .form-wrapper {

@@ -1,0 +1,37 @@
+.default-button {
+    border-radius: var(--border-radius-default);
+    padding: var(--border-radius-default);
+    color: var(--button-selected-text-color);
+    background-color: var(--button-selected-color);
+    border: none;
+    transition-duration: 0.3s;
+    transition-property: all;
+    transition-delay: 0s;
+
+    display: block;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    padding: 10px 30px;
+
+    font-size: 16px;
+
+    &--icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--border-radius-default);
+        padding: 0;
+    }
+
+    &--disabled {
+        background-color: var(--button-default-color);
+    }
+}
+
+.default-edit {
+
+}

@@ -1,8 +1,8 @@
-import './main.scss';
+import './styles.scss';
 
+import { useLayoutEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { createContext, useLayoutEffect, useState } from 'react';
 import ContentContainer from './app/ContentContainer';
 import MainContainer from './app/MainContainer';
 import Profile from './app/profile/Profile';
@@ -17,18 +17,7 @@ import EditWallet from './app/wallets/EditWallet';
 import AuthUser from './auth/AuthUser';
 import Login from './auth/login/Login';
 import Registration from './auth/registration/Registration';
-
-type Context = {
-	user: User | null;
-	updateUser: React.Dispatch<React.SetStateAction<User | null>>;
-};
-
-const defaultContext = {
-	user: null,
-	updateUser: () => {},
-};
-
-export const UserContext = createContext<Context>(defaultContext);
+import { UserContext } from './hooks/userContext';
 
 function App() {
 	const [currentUser, setCurrentUser] = useState<null | User>(null);

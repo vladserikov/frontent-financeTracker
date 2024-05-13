@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { useCreateWalletMutation } from '../../state/walletsApi';
-import Button from '../ui/Button';
-import FormElement from '../ui/FormElement';
-import FormWrapper from '../ui/FormWrapper';
-import InputForm from '../ui/InputForm';
+import Button from '../ui/buttons/Button';
+import FormElement from '../ui/form/FormElement';
+import FormWrapper from '../ui/form/FormWrapper';
+import InputForm from '../ui/form/InputForm';
 
 const AddWallet = () => {
 	const [createWallet, result] = useCreateWalletMutation();

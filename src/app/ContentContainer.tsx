@@ -1,15 +1,13 @@
 import Statistics from './statistics/Statistics';
-import { bem } from './utils/classnames';
+import AppContentLayer from './ui/layers/AppContentLayer';
 import Wallets from './wallets/Wallets';
-
-const [contentLayer] = bem('layer');
 
 const ContentContainer = () => {
 	return (
-		<div className={contentLayer}>
+		<AppContentLayer>
 			<Wallets />
 			<Statistics />
-		</div>
+		</AppContentLayer>
 	);
 };
 

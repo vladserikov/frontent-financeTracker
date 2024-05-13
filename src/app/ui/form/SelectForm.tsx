@@ -1,4 +1,4 @@
-import { defaultInputElement } from './classnames';
+import { defaultInputElement } from '../classnames';
 import InputWrapper from './InputWrapper';
 
 type SelectFormProps = {

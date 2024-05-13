@@ -5,8 +5,8 @@ import { initWallet } from '../../state/wallet';
 import { useGetAllWalletsQuery } from '../../state/walletsApi';
 import { plusSvg } from '../svg/plus';
 import { Wallet } from '../types';
-import LayerHeader from '../ui/LayerHeader';
-import WalletCard from '../ui/WalletCard';
+import LayerHeader from '../ui/layers/LayerHeader';
+import WalletCard from '../ui/wallet/WalletCard';
 import { bem } from '../utils/classnames';
 
 const [layerWallets] = bem('wallets-layer');

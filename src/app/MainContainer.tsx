@@ -1,4 +1,4 @@
-import Menu from './ui/Menu';
+import Menu from './ui/menu/Menu';
 
 import { Outlet } from 'react-router-dom';
 

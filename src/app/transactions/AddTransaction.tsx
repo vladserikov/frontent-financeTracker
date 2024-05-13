@@ -5,11 +5,11 @@ import { z } from 'zod';
 import { walletAddTransactionData } from '../../state/hooks';
 import { useAddTransactionMutation } from '../../state/walletsApi';
 import type { AddTransaction } from '../types';
-import Button from '../ui/Button';
-import FormElement from '../ui/FormElement';
-import FormWrapper from '../ui/FormWrapper';
-import InputForm from '../ui/InputForm';
-import SelectForm from '../ui/SelectForm';
+import Button from '../ui/buttons/Button';
+import FormElement from '../ui/form/FormElement';
+import FormWrapper from '../ui/form/FormWrapper';
+import InputForm from '../ui/form/InputForm';
+import SelectForm from '../ui/form/SelectForm';
 
 const formSchema = z.object({
 	amount: z.string().transform((v) => Number(v) || 0),

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { bem } from '../utils/classnames';
+import { bem } from '../../utils/classnames';
 
 type FormElement = {
 	onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -18,7 +18,9 @@ const FormElement: React.FC<FormElement> = ({
 }) => {
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+		const formData = new FormData(e.currentTarget);
+		const formObj = Object.fromEntries(formData);
+		console.log(formObj);
 		onSubmitAction(e);
 	};
 

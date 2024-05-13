@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { walletSelector } from '../../state/hooks';
 import { changeWallet } from '../../state/wallet';
 import { useEditWalletMutation } from '../../state/walletsApi';
-import Button from '../ui/Button';
-import FormElement from '../ui/FormElement';
-import FormWrapper from '../ui/FormWrapper';
-import InputForm from '../ui/InputForm';
+import Button from '../ui/buttons/Button';
+import FormElement from '../ui/form/FormElement';
+import FormWrapper from '../ui/form/FormWrapper';
+import InputForm from '../ui/form/InputForm';
 
 const EditWallet = () => {
 	const wallet = useSelector(walletSelector);

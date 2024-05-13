@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../App';
-import Button from '../../app/ui/Button';
-import InputForm from '../../app/ui/InputForm';
+
+import Button from '../../app/ui/buttons/Button';
+import InputForm from '../../app/ui/form/InputForm';
 import { setCookies } from '../../app/utils/localObject';
+import { UserContext } from '../../hooks/userContext';
 import { loginAction } from '../utils/login';
 
 const Login = () => {

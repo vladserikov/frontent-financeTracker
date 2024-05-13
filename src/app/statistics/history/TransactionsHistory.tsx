@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { plusSvg } from '../../svg/plus';
 import type { TransactionSummary } from '../../types';
-import Button from '../../ui/Button';
-import LayerHeader from '../../ui/LayerHeader';
+import Button from '../../ui/buttons/Button';
+import LayerHeader from '../../ui/layers/LayerHeader';
 import TransactionCard from '../../ui/statistic/TransactionCard';
 import { bem } from '../../utils/classnames';
 import { StatisticContext, StatisticContextProps } from '../statisticContext';

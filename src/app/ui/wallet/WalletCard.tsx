@@ -1,7 +1,7 @@
-import { balanceSvg } from '../svg/balance';
-import { otherSvg } from '../svg/other';
-import { bem } from '../utils/classnames';
-import EditBtn from './EditBtn';
+import { balanceSvg } from '../../svg/balance';
+import { otherSvg } from '../../svg/other';
+import { bem } from '../../utils/classnames';
+import EditBtn from '../buttons/EditBtn';
 
 type WalletCartProps = {
 	amount: number;

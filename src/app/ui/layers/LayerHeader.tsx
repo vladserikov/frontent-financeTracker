@@ -1,6 +1,6 @@
 import React from 'react';
-import { bem } from '../utils/classnames';
-import ButtonIcon from './ButtonIcon';
+import { bem } from '../../utils/classnames';
+import ButtonIcon from '../buttons/ButtonIcon';
 
 const [headerBlock, headerElement] = bem('layer-header');
 const [nameElement] = headerElement('name');

@@ -1,0 +1,48 @@
+.content-layer {
+    grid-area: content;
+    padding: 16px;
+
+    display: grid;
+
+    grid-template-areas:
+        "balance balance balance balance balance"
+        "data data data history history"
+        "graph graph graph history history"
+        "graph graph graph history history"
+    ;
+
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.layer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+    margin-bottom: 16px;
+
+    &__name {
+        font-weight: bold;
+        color: var(--button-default-text-color);
+        font-size: 24px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .content-layer {
+        grid-template-areas:
+            "balance"
+            "data"
+            "history"
+            "graph"
+        ;
+
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+        gap: 16px;
+        padding: 0;
+    }
+}

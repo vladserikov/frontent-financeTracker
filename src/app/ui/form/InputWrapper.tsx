@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { defaultInputWrapper } from './classnames';
+import { defaultInputWrapper } from '../classnames';
 
 type InputWrapper = {
 	className?: string;

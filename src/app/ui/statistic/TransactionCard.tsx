@@ -3,8 +3,8 @@ import { basketSvg } from '../../svg/basket';
 import { otherSvg } from '../../svg/other';
 import type { Transaction } from '../../types';
 import { bem } from '../../utils/classnames';
-import EditBtn from '../EditBtn';
-import IconContainer from '../IconContainer';
+import EditBtn from '../buttons/EditBtn';
+import IconContainer from '../icon/IconContainer';
 
 const [cardBlock, cardElement] = bem('history-card');
 const [iconElement] = cardElement('icon');

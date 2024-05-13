@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { bem } from '../utils/classnames';
-import Button from './Button';
+import { bem } from '../../utils/classnames';
+import Button from '../buttons/Button';
 
 type FormWrapperProps = {
 	children?: ReactNode;

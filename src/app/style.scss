@@ -10,25 +10,6 @@
         "menu content";
 }
 
-.layer {
-    grid-area: content;
-    padding: 16px;
-
-    display: grid;
-
-    grid-template-areas:
-        "balance balance balance balance balance"
-        "data data data history history"
-        "graph graph graph history history"
-        "graph graph graph history history"
-    ;
-
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 16px;
-
-}
-
 .common-layer {
     background-color: var(--background-color);
     border-radius: 16px;
@@ -43,21 +24,9 @@
             "menu"
             "content";
     }
-
-    .layer {
-        grid-template-areas:
-            "balance"
-            "data"
-            "history"
-            "graph"
-        ;
-
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, auto);
-        gap: 16px;
-        padding: 0;
-    }
 }
 
 @import './wallets/styles.scss';
 @import './statistics/styles.scss';
+@import './transactions/styles.scss';
+@import './profile/styles.scss';

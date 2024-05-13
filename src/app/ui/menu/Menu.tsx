@@ -1,15 +1,16 @@
 import clsx from 'clsx';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../App';
-import { balanceSvg } from '../svg/balance';
-import { homeSvg } from '../svg/home';
-import { menuSvg } from '../svg/menu';
-import { profileSvg } from '../svg/profile';
-import { bem } from '../utils/classnames';
-import { removeUserCookie } from '../utils/localObject';
-import Button from './Button';
-import NavButton from './NavButton';
+
+import { UserContext } from '../../../hooks/userContext';
+import { balanceSvg } from '../../svg/balance';
+import { homeSvg } from '../../svg/home';
+import { menuSvg } from '../../svg/menu';
+import { profileSvg } from '../../svg/profile';
+import { bem } from '../../utils/classnames';
+import { removeUserCookie } from '../../utils/localObject';
+import Button from '../buttons/Button';
+import NavButton from '../buttons/NavButton';
 
 const [blockMenu, elementGenerator] = bem('menu');
 const [linkBlock] = elementGenerator('link');
