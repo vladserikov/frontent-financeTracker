@@ -58,8 +58,8 @@
     }
 
     &__exit-btn {
-        display: none;
-        background-color: red;
+        position: absolute;
+        bottom: 15px;
     }
 
 }
@@ -127,6 +127,10 @@
             }
         }
 
+        &__exit-btn {
+            position: relative;
+        }
+
         .open {
             path {
                 stroke: var(--selected-wallet);
@@ -138,10 +142,8 @@
             background-color: rgba(40, 36, 36, 0);
             z-index: -1;
 
-            // height: ;
-            >.menu__burger-menu {
-                // height: 0;
-            }
+
+            >.menu__burger-menu {}
         }
     }
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { NewUser } from '../types';
 
 const baseUrl = '/api/user';

@@ -1,11 +1,17 @@
+import clsx from 'clsx';
 import React from 'react';
 
 import { defaultInputElement } from '../classnames';
 import InputWrapper from './InputWrapper';
 
-const [element] = defaultInputElement('element');
+const [elementBlock] = defaultInputElement('element');
+const [errorBlock] = defaultInputElement('error');
 
-const InputForm: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
+type InputElement = React.InputHTMLAttributes<HTMLInputElement> & {
+	errorMessages?: string[];
+};
+
+const InputForm: React.FC<InputElement> = ({
 	placeholder,
 	type,
 	onChange,
@@ -14,7 +20,10 @@ const InputForm: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
 	required,
 	disabled,
 	defaultValue,
+	errorMessages,
 }) => {
+	const classNameInput = clsx([elementBlock, errorMessages && 'error']);
+	const classNameError = clsx([errorBlock, errorMessages && 'visible'])
 	return (
 		<InputWrapper>
 			<input
@@ -22,13 +31,17 @@ const InputForm: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
 				id={id}
 				type={type}
 				placeholder={placeholder}
-				className={element}
+				className={classNameInput}
 				onChange={onChange}
 				value={value}
 				required={required}
 				disabled={disabled}
 				defaultValue={defaultValue}
 			/>
+			<span className={classNameError}>
+				{errorMessages}
+			</span>
+
 		</InputWrapper>
 	);
 };

@@ -1,62 +1,78 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 import Button from '../../app/ui/buttons/Button';
+import FormElement from '../../app/ui/form/FormElement';
+import FormWrapper from '../../app/ui/form/FormWrapper';
 import InputForm from '../../app/ui/form/InputForm';
 import { setCookies } from '../../app/utils/localObject';
 import { UserContext } from '../../hooks/userContext';
 import { loginAction } from '../utils/login';
 
+const loginSchema = z.object({
+	username: z.string({
+		message: "Не правильный логин/пароль"
+	}),
+	password: z.string().min(1, {
+		message: 'Введите пароль'
+	})
+})
+
+type ErrorState = {
+	errors?: { username?: string[]; password?: string[] };
+	message?: string | null;
+}
+
 const Login = () => {
 	const { updateUser } = useContext(UserContext);
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-
 	const navigate = useNavigate();
+	const [errorObj, setErrorObj] = useState<ErrorState>({})
 
-	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const onSubmit = async (formObj: Record<string, any>) => {
+		const parseResult = loginSchema.safeParse(formObj);
+
+		if (!parseResult.success) {
+			setErrorObj({
+				errors: parseResult.error.flatten().fieldErrors,
+				message: 'Missing Data'
+			})
+			return;
+		}
 
 		try {
-			const result = await loginAction({ username, password });
+			const result = await loginAction({ ...parseResult.data });
 			setCookies('username', result.username);
 			setCookies('name', result.name);
 			setCookies('token', result.token);
-			updateUser({ username, name: result.name });
+			updateUser({ username: result.username, name: result.name });
 			navigate('/app/main');
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const onChangeInput =
-		(setValue: React.Dispatch<React.SetStateAction<string>>) =>
-		({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
-			setValue(value);
-		};
-
 	return (
 		<>
-			<form onSubmit={onSubmit}>
-				<div>Войти в аккаунт</div>
-				<InputForm
-					id='username'
-					placeholder='username'
-					type='text'
-					value={username}
-					onChange={onChangeInput(setUsername)}
-					required
-				/>
-				<InputForm
-					id='password'
-					placeholder='password'
-					type='password'
-					value={password}
-					onChange={onChangeInput(setPassword)}
-					required
-				/>
-				<Button text='Войти' type='submit' />
-			</form>
+			<FormWrapper>
+				<FormElement name={'Войти в аккаунт'} onSubmitAction={onSubmit}>
+					<InputForm
+						id='username'
+						placeholder='Username'
+						type='text'
+						required
+					/>
+					{errorObj.errors?.username && errorObj.errors.username.map((er) => <div>{er}</div>)}
+					<InputForm
+						id='password'
+						placeholder='Пароль'
+						type='password'
+						required
+					/>
+					{errorObj.errors?.password && errorObj.errors.password.map((er) => <p>{er}</p>)}
+					<Button text='Войти' type='submit' />
+				</FormElement>
+			</FormWrapper>
 		</>
 	);
 };

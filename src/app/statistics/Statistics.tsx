@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { walletSelector } from '../../state/hooks';
+import type { TransactionSummary } from '../types';
 import SummaryCards from '../ui/statistic/SummaryCards';
 import StatisticGraph from './graph/StatisticGraph';
 import TransactionsHistory from './history/TransactionsHistory';
 import { StatisticContext } from './statisticContext';
 import { useStatisticData } from './statisticsHook';
-
-import type { TransactionSummary } from '../types';
 
 const Statistics = () => {
 	const wallet = useSelector(walletSelector);

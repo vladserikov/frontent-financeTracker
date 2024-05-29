@@ -6,7 +6,7 @@ import LayerHeader from '../ui/layers/LayerHeader';
 import TransactionCard from '../ui/statistic/TransactionCard';
 import { bem } from '../utils/classnames';
 
-const [transactionsBlock, transactionElement] = bem('transactions-data');
+const [, transactionElement] = bem('transactions-data');
 const [expenseBlock] = transactionElement('expense');
 const [incomeBlock] = transactionElement('income');
 

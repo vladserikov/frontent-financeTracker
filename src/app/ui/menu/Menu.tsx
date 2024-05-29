@@ -91,6 +91,12 @@ const Menu: React.FC = () => {
 							/>
 						);
 					})}
+					<Button
+						type='button'
+						className={exitButton}
+						onClick={onExit}
+						text='Выход'
+					/>
 				</ul>
 			</nav>
 			<div
@@ -101,12 +107,6 @@ const Menu: React.FC = () => {
 			>
 				{menuSvg}
 			</div>
-			<Button
-				type='button'
-				className={exitButton}
-				onClick={onExit}
-				text='Exit'
-			/>
 		</div>
 	);
 };

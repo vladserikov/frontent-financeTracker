@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
 
 import { walletAddTransactionData } from '../../state/hooks';
 import { useAddTransactionMutation } from '../../state/walletsApi';
@@ -10,24 +9,9 @@ import FormElement from '../ui/form/FormElement';
 import FormWrapper from '../ui/form/FormWrapper';
 import InputForm from '../ui/form/InputForm';
 import SelectForm from '../ui/form/SelectForm';
+import { addTransactionSchema, ErrorAddTransactionFields } from './utils/addTransactionSchema';
 
-import type { AddTransaction } from '../types';
 
-const formSchema = z.object({
-	amount: z.string().transform((v) => Number(v) || 0),
-	category: z.string().min(1, {
-		message: 'Please typing category',
-	}),
-	date: z.coerce.date({
-		invalid_type_error: 'Data',
-	}),
-	transactionType: z.enum(['Expense', 'Income']),
-});
-
-type State = {
-	errors?: { category?: string[]; amount?: string[]; date?: string[] };
-	message?: string | null;
-};
 
 const AddTransaction = () => {
 	const [walletId, walletUnit, walletName] = useSelector(
@@ -35,17 +19,17 @@ const AddTransaction = () => {
 	);
 	const navigate = useNavigate();
 	const [addTransaction, result] = useAddTransactionMutation();
-	const [errorObj, setErrorObj] = useState<State>({});
+	const [errorObj, setErrorObj] = useState<ErrorAddTransactionFields>({});
 
 	const onSubmit = (formObj: Record<string, any>) => {
-		const result = formSchema.safeParse({
+		const result = addTransactionSchema.safeParse({
 			...formObj,
 		});
 
 		if (!result.success) {
 			setErrorObj({
 				errors: result.error.flatten().fieldErrors,
-				message: 'Missing Fields. Failed to Create Invoice.',
+				message: 'Missing Fields. Failed to Create Transaction.',
 			});
 			return;
 		}
@@ -57,19 +41,15 @@ const AddTransaction = () => {
 	return (
 		<FormWrapper backAction>
 			<FormElement name={`Add ${walletName}`} onSubmitAction={onSubmit}>
-				<InputForm id='category' placeholder='category' type='text' />
-				{errorObj.errors?.category &&
-					errorObj.errors.category.map((er) => <p>{er}</p>)}
-				<InputForm id='date' placeholder='Date' type='date' />
-				{errorObj.errors?.date && errorObj.errors.date.map((er) => <p>{er}</p>)}
+				<InputForm id='category' placeholder='category' type='text' errorMessages={errorObj.errors?.category} />
+				<InputForm id='date' placeholder='Date' type='date' errorMessages={errorObj.errors?.date} />
 				<InputForm
 					id='amount'
 					placeholder='amount'
 					type='number'
 					defaultValue={0}
+					errorMessages={errorObj.errors?.amount}
 				/>
-				{errorObj.errors?.amount &&
-					errorObj.errors.amount.map((er) => <p>{er}</p>)}
 				<InputForm
 					id='unit'
 					placeholder='unit'

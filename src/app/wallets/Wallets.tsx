@@ -35,9 +35,9 @@ const Wallets = () => {
 		}
 	}, [selectWallet, walletId, wallets]);
 
-	if (isLoading || !wallets) {
-		return <>Loading...</>;
-	}
+	// if (isLoading || !wallets) {
+	// 	return <>Loading...</>;
+	// }
 	const onSelectWallet =
 		(newWallet: Wallet) =>
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -58,10 +58,15 @@ const Wallets = () => {
 				<div className={walletsBlock}>
 					<LayerHeader
 						name='Счета'
-						button={{ to: '/app/main/add-wallet', icon: plusSvg }}
+						button={{
+							to: '/app/main/add-wallet',
+							icon: plusSvg,
+							disabled: isLoading,
+						}}
 					/>
+
 					<div className={cards}>
-						{wallets.map((wallet) => (
+						{(wallets || []).map((wallet) => (
 							<WalletCard
 								key={wallet.id}
 								{...wallet}

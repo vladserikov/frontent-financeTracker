@@ -44,6 +44,8 @@
 }
 
 .input-block {
+    position: relative;
+
     &__element {
         display: block;
         border: var(--border-default);
@@ -58,6 +60,11 @@
         min-height: 2.5rem;
         width: 100%;
 
+        font-size: 14px;
+        line-height: 17px;
+
+        margin-bottom: 8px;
+
         &::placeholder {
             color: var(--selected-wallet);
         }
@@ -67,11 +74,49 @@
             border: var(--border-selected);
         }
 
+        &::placeholder {
+            color: var(--selected-wallet);
+        }
         // &:hover {
         //     background-color: var(--background-element-dark);
         // }
+
+    }
+
+    &__element.error {
+        border-color: red;
+    }
+
+    &__error {
+        display: none;
+
+        background-color: var(--error-field);
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        opacity: .9;
+        padding: 4px;
+        font-size: 12px;
+        color: red;
+        font-weight: bolder;
+    }
+
+    &__error.visible {
+        display: block;
+        position: absolute;
+
+        &::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #c51244;
+            position: absolute;
+            top: -3px;
+        }
     }
 }
+
 
 
 @media only screen and (max-width: 768px) {

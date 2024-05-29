@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useNavigate } from 'react-router-dom';
+
 import { walletSelector } from '../../state/hooks';
 import { changeWallet } from '../../state/wallet';
 import { useEditWalletMutation } from '../../state/walletsApi';

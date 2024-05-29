@@ -1,6 +1,0 @@
-{
-    "importSorter.sortConfiguration.importMembers.direction": "asc",
-    "importSorter.sortConfiguration.importPaths.direction": "asc",
-    "importSorter.sortConfiguration.importMembers.order": "lowercaseLast",
-    "importSorter.sortConfiguration.importPaths.order": "lowercaseLast"
-}

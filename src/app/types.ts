@@ -41,3 +41,8 @@ export type TransactionSummary = {
 export type KeysTransactionSummary = keyof TransactionSummary;
 
 export type AddTransaction = Omit<Transaction, 'id'> & { walletId: string };
+
+export type ErrorSchemaObject<T> = {
+	errors?: T;
+	message?: string | null;
+};

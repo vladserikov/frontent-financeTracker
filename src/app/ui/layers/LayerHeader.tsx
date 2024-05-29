@@ -14,6 +14,7 @@ export type LayerHeaderProps = {
 		to: string;
 		icon?: JSX.Element;
 		className?: string;
+		disabled?: boolean;
 	};
 };
 
@@ -26,6 +27,7 @@ const LayerHeader: React.FC<LayerHeaderProps> = ({ name, button }) => {
 					to={button.to}
 					icon={button.icon}
 					className={buttonElement}
+					disabled={button.disabled}
 				/>
 			)}
 		</div>

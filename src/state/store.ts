@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import { walletReducer } from './wallet';
 import { walletApi } from './walletsApi';
 

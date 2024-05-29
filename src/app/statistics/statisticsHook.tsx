@@ -1,6 +1,5 @@
 import { arrowSvg } from '../svg/arrow';
 import { balanceSvg } from '../svg/balance';
-
 import type { TransactionSummary, Wallet } from '../types';
 
 export const useStatisticData = (wallet: Wallet) => {

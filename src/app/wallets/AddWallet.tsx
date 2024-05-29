@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 import { useCreateWalletMutation } from '../../state/walletsApi';
 import Button from '../ui/buttons/Button';
@@ -7,57 +7,39 @@ import FormElement from '../ui/form/FormElement';
 import FormWrapper from '../ui/form/FormWrapper';
 import InputForm from '../ui/form/InputForm';
 
+const newWalletSchema = z.object({
+	amount: z.string().transform((v) => Number(v) || 0),
+	name: z.string().min(3, {
+		message: 'Please more chars',
+	}),
+	unit: z.string().min(2, {
+		message: 'Please add unit',
+	}),
+});
+
 const AddWallet = () => {
 	const [createWallet, result] = useCreateWalletMutation();
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [unit, setUnit] = useState('');
-	const [amount, setAmount] = useState('');
-	const [comment, setComment] = useState('');
+	const onSubmit = (formObj: Record<string, any>) => {
+		const result = newWalletSchema.safeParse(formObj);
 
-	const onChangeState =
-		(setState: React.Dispatch<React.SetStateAction<string>>) =>
-		({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
-			setState(value);
-		};
+		if (!result.success) {
+			// send notification
+			return;
+		}
 
-	const onSubmit = () => {
-		createWallet({ amount: parseFloat(amount), name, unit });
+		createWallet(result.data);
 		navigate(-1);
 	};
 
 	return (
 		<FormWrapper backAction>
 			<FormElement onSubmitAction={onSubmit} name='Добавить счет'>
-				<InputForm
-					onChange={onChangeState(setName)}
-					value={name}
-					type='text'
-					id='name'
-					placeholder='Название счета'
-				/>
-				<InputForm
-					onChange={onChangeState(setUnit)}
-					value={unit}
-					id='unit'
-					placeholder='Unit'
-					type='text'
-				/>
-				<InputForm
-					onChange={onChangeState(setAmount)}
-					value={amount}
-					id='amount'
-					placeholder='Значение'
-					type='text'
-				/>
-				<InputForm
-					onChange={onChangeState(setComment)}
-					value={comment}
-					id='comment'
-					placeholder='Комментарий'
-					type='text'
-				/>
+				<InputForm type='text' id='name' placeholder='Название счета' />
+				<InputForm id='unit' placeholder='Unit' type='text' />
+				<InputForm id='amount' placeholder='Значение' type='text' />
+				<InputForm id='comment' placeholder='Комментарий' type='text' />
 				<Button type='submit' text='Добавить' disabled={result.isLoading} />
 			</FormElement>
 		</FormWrapper>

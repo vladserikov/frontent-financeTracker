@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit/react';
+
 import { Transaction, Wallet } from '../app/types';
 
 const initialState: Wallet = {

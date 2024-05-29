@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import type { AddTransaction, Transaction, Wallet } from '../app/types';
 import { getCookie } from '../app/utils/localObject';
 import { addWalletTransaction, updateTransaction } from './wallet';

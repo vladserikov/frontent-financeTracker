@@ -12,6 +12,7 @@ export type ButtonMenu = {
 	withIcon?: boolean;
 	withText?: boolean;
 	onClick?: () => void;
+	disabled?: boolean;
 };
 
 const NavButton: React.FC<ButtonMenu> = ({
@@ -21,12 +22,17 @@ const NavButton: React.FC<ButtonMenu> = ({
 	icon,
 	withText,
 	onClick,
+	disabled,
 	withIcon = true,
 }) => {
-	const classname = clsx([defaultButtonBlock, className]);
+	const classname = clsx([
+		defaultButtonBlock,
+		className,
+		disabled && 'disabled',
+	]);
 
 	return (
-		<NavLink to={to} className={classname} onClick={onClick && onClick}>
+		<NavLink to={to} className={classname} onClick={onClick}>
 			{withIcon ? icon : null}
 			{withText || text ? text : null}
 		</NavLink>
