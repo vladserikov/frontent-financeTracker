@@ -10,7 +10,7 @@ import AddTransaction from './app/transactions/AddTransaction';
 import EditTransaction from './app/transactions/EditTransaction';
 import WalletSummary from './app/transactions/WalletSummary';
 import { User } from './app/types';
-import ErrorElement from './app/ui/ErrorElement';
+import ErrorElement from './app/ui/error-elements/ErrorElement';
 import { getCookie } from './app/utils/localObject';
 import AddWallet from './app/wallets/AddWallet';
 import EditWallet from './app/wallets/EditWallet';

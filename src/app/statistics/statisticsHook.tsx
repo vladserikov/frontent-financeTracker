@@ -5,25 +5,28 @@ import type { TransactionSummary, Wallet } from '../types';
 export const useStatisticData = (wallet: Wallet) => {
 	const initData: TransactionSummary = {
 		aggregate: {
-			name: 'Amount',
+			name: 'amount',
 			amount: wallet.amount,
 			transactions: wallet.transactions,
 			icon: balanceSvg,
 			unit: wallet.unit,
+			text: 'Сумма'
 		},
 		income: {
-			name: 'Income',
+			name: 'income',
 			amount: 0,
 			transactions: [],
 			icon: arrowSvg,
 			unit: wallet.unit,
+			text: 'Доходы'
 		},
 		expense: {
-			name: 'Expense',
+			name: 'expense',
 			amount: 0,
 			transactions: [],
 			icon: arrowSvg,
 			unit: wallet.unit,
+			text: 'Расходы'
 		},
 	};
 

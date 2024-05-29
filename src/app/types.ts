@@ -25,11 +25,12 @@ export type Wallet = {
 };
 
 export type SummaryEntity = {
-	name: 'Amount' | 'Income' | 'Expense';
+	name: 'amount' | 'income' | 'expense';
 	amount: number;
 	transactions: Transaction[];
 	icon: JSX.Element;
 	unit: string;
+	text: string;
 };
 
 export type TransactionSummary = {
@@ -46,3 +47,4 @@ export type ErrorSchemaObject<T> = {
 	errors?: T;
 	message?: string | null;
 };
+

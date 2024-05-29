@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import Button from '../../app/ui/buttons/Button';
+import ErrorMessage from '../../app/ui/error-elements/ErrorMessage';
 import FormElement from '../../app/ui/form/FormElement';
 import FormWrapper from '../../app/ui/form/FormWrapper';
 import InputForm from '../../app/ui/form/InputForm';
@@ -48,7 +49,9 @@ const Login = () => {
 			updateUser({ username: result.username, name: result.name });
 			navigate('/app/main');
 		} catch (error) {
-			console.log(error);
+			setErrorObj({
+				message: 'Не правильный username или пароль'
+			});
 		}
 	};
 
@@ -61,17 +64,18 @@ const Login = () => {
 						placeholder='Username'
 						type='text'
 						required
+						errorMessages={errorObj.errors?.username}
 					/>
-					{errorObj.errors?.username && errorObj.errors.username.map((er) => <div>{er}</div>)}
 					<InputForm
 						id='password'
 						placeholder='Пароль'
 						type='password'
 						required
+						errorMessages={errorObj.errors?.password}
 					/>
-					{errorObj.errors?.password && errorObj.errors.password.map((er) => <p>{er}</p>)}
 					<Button text='Войти' type='submit' />
 				</FormElement>
+				{errorObj.message && <ErrorMessage message={errorObj.message} />}
 			</FormWrapper>
 		</>
 	);

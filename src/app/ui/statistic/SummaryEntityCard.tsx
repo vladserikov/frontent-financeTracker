@@ -10,12 +10,12 @@ const [cardValue] = cardElement('value');
 const SummaryEntityCard: React.FC<SummaryEntity> = ({
 	amount,
 	icon,
-	name,
 	unit,
+	text
 }) => {
 	return (
 		<div className={cardBlock}>
-			<div className={cardName}>{name}</div>
+			<div className={cardName}>{text}</div>
 			<div className={cardWrapper}>
 				<div className={cardIcon}>{icon}</div>
 				<div className={cardValue}>

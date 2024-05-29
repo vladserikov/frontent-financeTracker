@@ -30,6 +30,8 @@
     &--disabled {
         background-color: var(--button-default-color);
     }
+
+    cursor: pointer;
 }
 
 .default-edit {
